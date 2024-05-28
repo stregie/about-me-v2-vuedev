@@ -1,0 +1,55 @@
+@import "./variables.scss";
+
+.commandbar-menu{
+  font-size: 0.8rem;
+}
+
+@media (min-width: 769px) {
+
+}
+
+
+@media (max-width: 768px) {
+
+}
+
+
+
+// .commandbar-filter-menu {
+//     display: inline-block;
+//     padding: 20px;
+//     z-index: 5000;
+//     background: $background-1;
+//     border: 1px solid $border-1;
+//     border-radius: 10px;
+//     box-shadow: 0px 0px 7px 2px $border-1;
+//     opacity: 1;
+//     position: absolute;
+
+//     // column-gap: 20px;
+//     form {
+// /*      margin: 20px;*/
+//     }
+//     label {
+//       display: block;
+//     }
+//     input {
+//       display: block;
+//       width: 100%;
+//     }
+//   }
+
+//   @media (min-width: 769px) {
+//     .commandbar-filter-menu {
+//       // grid-template-columns: 1fr 1fr 1fr;
+//       // max-width: 100%;
+//     }
+//   }
+
+//   @media (max-width: 768px) {
+//     .commandbar-filter-menu {
+//       // grid-template-columns: auto;
+//       // width: 100%;
+// /*      margin: 20px;*/
+//     }
+//   }

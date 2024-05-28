@@ -1,0 +1,167 @@
+@import "./variables.scss";
+#fileuploader-minisite{
+  // scrollbar-color: red orange;
+  height: 100vh;
+  font-family: 'Open Sans', Arial, sans-serif;
+}
+
+// Sidebar
+#sidebar {
+  background: $background-2;
+  border-right: 1px solid $border-1;
+  color: $font-light;
+  display: grid;
+  grid-template-rows: 100px calc(100vh - 180px) 80px;
+  font-weight: 500;
+  height: 100%;
+  position: relative;
+  z-index: 1000;
+}
+
+#sidebar-toggler {
+  background: none;
+  border: none;
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  img {
+    opacity: 50%;
+  }
+}
+#sidebar-menu {
+  padding-top: 20px;
+}
+#sidebar-folders{
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+
+.sidebar-list{
+  ul {
+    margin: 0;
+    list-style: none;
+    padding-left: 0px;
+  }
+  .sidebar-list-item {
+    display: flex;
+    align-items: center;
+  }
+  .sidebar-list-item.active{
+    white-space: nowrap;
+  }
+  .sidebar-list-item:hover{
+    background: $background-3;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+}
+
+.sidebar-list-icon {
+  background: none;
+  border: none;
+  color: $font-light;
+  font-weight: 500;  
+  img {
+    // specify width and height!
+    filter: opacity(50%);
+  }
+}
+.sidebar-list-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#sidebar-storage{
+  // position: absolute;
+  // bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  width: 100%;
+  label {
+    font-size: 0.8rem;
+    font-weight: 400;
+    margin-bottom: 0px;
+  }
+  progress{
+    background: $background-3;
+    border: none;
+    height: 3px;
+    color: black;
+    width: 100%;
+  }
+}
+
+// main window
+#command-bar{
+  color: $font-dark;
+  margin-bottom: 10px;
+  button {
+    background: none;
+    border: none;
+    line-height: 30px;
+    margin-right: 5px;
+    img {
+      z-index: 0;
+      height: 24px;
+      width: 24px;
+      filter: opacity(50%);
+    }
+  }
+  button:hover {
+    background: $background-3;
+    border-radius: 8px;
+  }
+}
+#breadcrumb{
+  label:hover{
+    text-decoration: underline;
+    cursor: pointer;
+  }
+}
+
+#main-content {
+  background: $background-1;
+}
+
+
+
+
+@media (min-width: 769px) {
+  #fileuploader-minisite{
+    display: grid;
+    grid-template-columns: 200px auto;
+  }
+  #sidebar-toggler-command-bar,
+  #sidebar-toggler {
+    display: none;
+  }
+  #main-content {
+    padding: 40px;
+  }
+
+
+}
+
+@media (max-width: 768px) {
+  #fileuploader-minisite{
+    position: relative;
+  }
+  $sidebarWidth: 80%;
+  #sidebar {
+    position: absolute;
+    width: $sidebarWidth;
+    visibility: visible;
+    left: 0;
+    transition: left 0.3s ease-in-out, visibility 0.3s ease-in-out;
+    font-size: 1.4rem;
+  }
+  #sidebar.hidden {
+    left: -$sidebarWidth;
+    visibility: hidden;
+  }
+  #main-content {
+    padding: 10px;
+  }
+}
