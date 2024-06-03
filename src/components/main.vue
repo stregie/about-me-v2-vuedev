@@ -1,32 +1,38 @@
 <template>
-	<div class = "minisite-info-dummy">Fileuploader. <router-link to = "/file-uploader-test/">Test</router-link> Viewport width: {{ viewportWidth }}</div>
+	<div class = "minisite-info-dummy">
+		Fileuploader.
+		<router-link to = "/file-uploader-test/">Test</router-link>
+	  Viewport width: {{ viewportWidth }}
+	  
+	</div>
 	<div id = "fileuploader-minisite">
-		<div :class = "{ blurred: isModalVisible }">
+		<div :class = "{ blurred: modalVisible }">
 			<Sidebar />
 		</div>
-		<div id = "main-content" :class = "{ blurred: isModalVisible }">
+		<div id = "main-content" :class = "{ blurred: modalVisible }">
 			<Commandbar 
-			 @changeFileListView = "changeFileListView"/>
+			  @changeFileListView = "changeFileListView"/>
 			<Breadcrumb />
-			<Filelist 
-			  :fileListView = "fileListView"
-			/>
-			<!-- <pre>{{ availableFiles }}</pre> -->
+			<div id = "file-list">
+		    <component :is = "fileListView"></component>
+			</div>
 		</div>
-		<div v-if = "isModalVisible" id = "modal">
+		<div v-if = "modalVisible" id = "modal">
 			<DraganddropUpload />
 		</div>
 	</div>
 </template>
 
 <script >
-	import { useFilesStore } from '../stores/stores.js';
   import { mapState, mapActions } from 'pinia';
+	import { useComponentDisplayStore } from '../stores/use-component-display-store.js';
+	import { useFilesStore } from '../stores/use-files-store.js';
   import Sidebar from './sidebar.vue';
   import Commandbar from './commandbar.vue';
   import Breadcrumb from './breadcrumb.vue';
-  import Filelist from './filelist.vue';
   import DraganddropUpload from './draganddrop-upload.vue';
+  import ListView from './filelist-listview.vue';
+  import DetailedView from './filelist-detailedview.vue';
 
 
 	export default {
@@ -34,32 +40,23 @@
       'Sidebar': Sidebar,
       'Commandbar': Commandbar,
 			'Breadcrumb': Breadcrumb,
-      'Filelist': Filelist,
-      'DraganddropUpload': DraganddropUpload
+      'ListView': ListView,
+      'DetailedView': DetailedView,
+      'DraganddropUpload': DraganddropUpload,
     },
-		data(){
-			return {
-				fileListView: "ListView",
-				isModalVisible: true
-			}
-		},
 		async created(){
-			this.fetchFileMetaDataList('available');
+			this.fetchFileListAll();
 		},
 		computed: {
-			...mapState(useFilesStore, ['availableFiles']),
+			...mapState(useComponentDisplayStore, ['modalVisible', 'fileListView']),
 			viewportWidth(){
 				let vw = Math.max(document.documentElement.clientWidth || 0);
 				return vw;
 			}
-
 		},
-    methods: {
-			...mapActions(useFilesStore, ['fetchFileMetaDataList']),
-			changeFileListView(view){
-				this.fileListView = view;
-			}
-    }
+		methods: {
+			...mapActions(useFilesStore, ['fetchFileListAll'])
+		}
   };
 </script>
 

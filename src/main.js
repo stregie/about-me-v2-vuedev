@@ -5,6 +5,7 @@ import './assets/css/main.scss';
 
 import App from './App.vue';
 import Main from './components/main.vue';
+// import Main from './components/test-stores.vue';
 import FileUploaderTest from './components/file-uploader-test.vue';
 
 const router = createRouter({

@@ -32,22 +32,15 @@
 </template>
 
 <script>
-  import { useSidebarCompStore, useFoldersStore } from '../stores/stores.js';
   import { mapState, mapActions } from 'pinia';
-  // import '../assets/css/commandbar.scss';
+  import { useFilesAndFoldersStore } from '../stores/use-files-and-folders-store.js';
 
 	export default {
-		data() {
-			return {
-        
-			}
-		},
     computed: {
-      ...mapState(useFoldersStore, ['sortBy']),
-      
+      ...mapState(useFilesAndFoldersStore, ['sortBy']),
     },
     methods: {
-      ...mapActions(useFoldersStore, ['changeSortOrder']),
+      ...mapActions(useFilesAndFoldersStore, ['changeSortOrder']),
     }
   }
 </script>

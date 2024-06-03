@@ -1,19 +1,19 @@
 <template>
   <div id = "command-bar">
     <div>
-      <button type = "button" @click = "toggleSidebar" id = "sidebar-toggler-command-bar">
+      <button type = "button" @click = "toggleSidebarVisibility" id = "sidebar-toggler-command-bar">
         <img :src = "'/src/assets/icons/menu_black_24dp.svg'" />
         Sidebar
       </button>
-      <button type = "button" @click = "selectCommandBarMenu('upload')">
+      <button type = "button" @click = "selectCommandBarMenu('upload-bar')">
         <img :src = "'/src/assets/icons/file_upload_black_24dp.svg'" />
         Upload
       </button>
-      <button type = "button" @click = "selectCommandBarMenu('filter')">
+      <button type = "button" @click = "selectCommandBarMenu('filter-bar')">
         <img :src = "'/src/assets/icons/filter_alt_black_24dp.svg'" />
         Filter
       </button>
-      <button type = "button" @click = "selectCommandBarMenu('sort')">
+      <button type = "button" @click = "selectCommandBarMenu('sort-bar')">
         <img :src = "'/src/assets/icons/sort_by_alpha_black_24dp.svg'" />
         Sort by
       </button>
@@ -31,16 +31,13 @@
         </KeepAlive>
       </div>
     </div>
-
-    <div>
-      <!-- <p>actInpComp: {{ activeCommandbarMenu }}; SortBy: {{ sortBy.column }}; Ascending: {{ sortBy.ascending }}; FilterBy: {{ filterBy }}</p> -->
-    </div>
   </div>
 </template>
 
 <script>
-  import { useSidebarCompStore, useFoldersStore } from '../stores/stores.js';
   import { mapState, mapActions } from 'pinia';
+  import { useComponentDisplayStore } from '../stores/use-component-display-store.js';
+  
   import CommandbarFilter from './commandbar-filter.vue';
   import CommandbarSort from './commandbar-sort.vue';
   import CommandbarUpload from './commandbar-upload.vue';
@@ -48,25 +45,18 @@
 
 	export default {
     components: {
-      'filter': CommandbarFilter,
-      'sort': CommandbarSort,
-      'upload': CommandbarUpload,
+      'filter-bar': CommandbarFilter,
+      'sort-bar': CommandbarSort,
+      'upload-bar': CommandbarUpload,
     },
 		data() {
 			return {
-        activeCommandbarMenu: "upload",
-        isCommandbarMenuHidden: false
+        activeCommandbarMenu: "filter-bar",
+        isCommandbarMenuHidden: true
 			}
 		},
-    computed: {
-      ...mapState(useFoldersStore, ['filterBy', 'sortBy']),
-    },
     methods: {
-      ...mapActions(useSidebarCompStore, ['toggleSidebar']),
-      ...mapActions(useFoldersStore, ['changeSortOrder']),
-      changeFileListView(view){
-        this.$emit('changeFileListView', view);
-      },
+      ...mapActions(useComponentDisplayStore, ['changeFileListView', 'toggleSidebarVisibility']),
       selectCommandBarMenu(menuType) {
         if (menuType === this.activeCommandbarMenu) {
           this.isCommandbarMenuHidden = !this.isCommandbarMenuHidden;

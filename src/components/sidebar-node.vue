@@ -28,25 +28,21 @@
 
 
 <script>
-  import { useFoldersStore } from '../stores/stores.js';
+  import { useFoldersStore } from '../stores/use-folders-store.js';
+  import { useFilesAndFoldersStore } from '../stores/use-files-and-folders-store.js';
   import { mapActions } from 'pinia';
   
   export default {
     name: 'Node',
     props: ['tree', 'parentPath'],
-    data() {
-      return {
-        
-      }
-    },
     computed: {
       depth(){
          return this.parentPath.length;
       }
     },
     methods: {
-      ...mapActions(useFoldersStore, ['toggleExpanded', 'changeActiveFolder']),
-      // ...mapActions(useTestStore, ['testConsole']),
+      ...mapActions(useFoldersStore, ['toggleExpanded']),
+      ...mapActions(useFilesAndFoldersStore, ['changeActiveFolder']),
       parentsOfNode(folderName){
         let pathArray = [...this.parentPath];
         pathArray.push(folderName);
@@ -54,7 +50,7 @@
       },
       toggleExpandedState(folderName){
         event.stopPropagation();
-        console.log("parentPath", this.parentPath);
+        // console.log("parentPath", this.parentPath);
         let pathArray = JSON.parse(JSON.stringify(this.parentPath));
         pathArray.push(folderName);
         this.toggleExpanded(pathArray);
@@ -63,7 +59,6 @@
         let pathArray = JSON.parse(JSON.stringify(this.parentPath));
         pathArray.push(folderName);
         this.changeActiveFolder(pathArray);
-        // this.$emit('changeActiveFolder', pathArray);
       },
     }
   };

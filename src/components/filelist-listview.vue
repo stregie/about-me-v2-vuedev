@@ -3,7 +3,7 @@
     <!-- <p>WindowWidth: {{ windowWidth }} mobileView: {{ mobileView }} ColumnOrder a: {{ columnOrder.action }} n: {{ columnOrder.name }} e: {{ columnOrder.ext }} s: {{ columnOrder.size }} d: {{columnOrder.date }}</p> -->
 
     <div id = "list-view-table">
-      <template v-for = "(folder, index) in subFoldersInActiveFolder">
+      <template v-for = "(folder, index) in foldersToDisplay">
         <div
           class = "grid-item grid-folder folder-action"
           :style = "{'order': 5 * index + columnOrder.action + 5}"
@@ -42,7 +42,7 @@
         </div>
       </template>
 
-      <template v-for = "(file, index) in filesInActiveFolder">
+      <template v-for = "(file, index) in filesToDisplay">
         <div
           class = "grid-item grid-file file-action"
           :style = "{'order': 5 * index + columnOrder.action + 3000}"
@@ -84,8 +84,8 @@
 </template>
 
 <script>
-  import { useFilesStore, useFoldersStore } from '../stores/stores.js';
   import { mapState, mapActions } from 'pinia';
+  import { useFilesAndFoldersStore } from '../stores/use-files-and-folders-store.js';
   import { formatSize, formatDate, highlightRow, removeHighlight } from '../utils/utils.js';
   import FilelistMenu from './filelist-listview-menu.vue';
   import '../assets/css/filelist-listview.scss';
@@ -108,8 +108,7 @@
       window.removeEventListener('resize', this.handleResize);
     },
     computed: {
-      ...mapState(useFilesStore, ['fileMetaDataList']),
-      ...mapState(useFoldersStore, ['activeFolder', 'subFoldersInActiveFolder', 'filesInActiveFolder']),
+      ...mapState(useFilesAndFoldersStore, ['activeFolder', 'foldersToDisplay', 'filesToDisplay']),
       columnOrder() {
         if(this.mobileView) {
           return {
@@ -131,7 +130,6 @@
       }
     },
     methods: {
-      // ...mapActions(useFoldersStore, ['changeActiveFolder']),
       handleResize(){
         this.windowWidth = window.innerWidth;
         console.log("resize");
@@ -163,29 +161,3 @@
     }
   }
 </script>
-
-
-
-     <!--  <template class = "grid-row folder-row" v-for = "folder in subFoldersInActiveFolder">
-        <div class = "grid-item action-column">
-          <Listview-Menu :type = "'folder'" :folder = "folder" />
-        </div>
-        <div class = "grid-item name-column">
-          <button type = "button" @click = "changeFolder(folder)">{{ folder }}</button>
-        </div>
-        <div class = "grid-item ext-column"></div>
-        <div class = "grid-item size-column"></div>
-        <div class = "grid-item date-column"></div>
-      </template>
-  
-      <template class = "grid-row file-row" v-for = "file in filesInActiveFolder" :key = "file.fileid">
-        <div class = "grid-item action-column">
-          <Listview-Menu :type = "'file'" :fileid = "file.fileid" />
-        </div>
-        <div class = "grid-item name-column">
-          <button type = "button" @click = "console.log('download', file.fileid)">{{ file.filename }}</button>
-        </div>
-        <div class = "grid-item ext-column">{{ file.extension }}</div>
-        <div class = "grid-item size-column">436 GB</div>
-        <div class = "grid-item date-column">2024-02-17</div>
-      </template> -->

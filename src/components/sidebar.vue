@@ -1,16 +1,26 @@
 <template>
-  <div id = "sidebar" :class = "{hidden: sidebarHidden}">
-    <button id = "sidebar-toggler" type = "button" @click = "toggleSidebar">
+  <div id = "sidebar" :class = "{hidden: !sidebarVisible}">
+    <button id = "sidebar-toggler" type = "button" @click = "toggleSidebarVisibility">
       <img :src = "'/src/assets/icons/keyboard_double_arrow_left_black_24dp.svg'" />
     </button>
     <div id = "sidebar-menu" class = "sidebar-list">
       <ul>
         <li>
-          <div class = "sidebar-list-item">
+          <div class = "sidebar-list-item" @click = "home">
             <button 
               class = "sidebar-list-icon"
               type = "button"
-              @click = "openSearch"
+            ><img :src = "'/src/assets/icons/home_black_24dp.svg'" />
+          </button>
+
+            <div class = "sidebar-list-text">Home</div> 
+          </div>
+        </li>
+        <li>
+          <div class = "sidebar-list-item" @click = "openSearch">
+            <button 
+              class = "sidebar-list-icon"
+              type = "button"
             ><img :src = "'/src/assets/icons/search_black_24dp.svg'" /></button>
 
             <div class = "sidebar-list-text">Search</div> 
@@ -18,11 +28,10 @@
         </li>
 
         <li>
-          <div class = "sidebar-list-item">
+          <div class = "sidebar-list-item" @click = "openTrash">
             <button 
               class = "sidebar-list-icon"
               type = "button"
-              @click = "openTrash"
             ><img :src = "'/src/assets/icons/folder_delete_black_24dp.svg'" /></button>
   
             <div class = "sidebar-list-text">Trash</div> 
@@ -47,33 +56,31 @@
 </template>
 
 <script>
-  import Node from './sidebar-node.vue';
-  import { useFoldersStore, useSidebarCompStore } from '../stores/stores.js';
   import { mapState, mapActions } from 'pinia';
-
+  import { useComponentDisplayStore } from '../stores/use-component-display-store.js';
+  import { useFoldersStore } from '../stores/use-folders-store.js';
+  import { useFilesAndFoldersStore } from '../stores/use-files-and-folders-store.js';
+  import Node from './sidebar-node.vue';
 
 
 	export default {
     components: {
       'Node': Node,
     },
-		data() {
-			return {
-        
-			}
-		},
     computed: {
+    ...mapState(useComponentDisplayStore, ['sidebarVisible']),
     ...mapState(useFoldersStore, ['activeFolder', 'folderTree', 'loading']),
-    ...mapState(useSidebarCompStore, ['sidebarHidden']),
     },
     methods: {
-      ...mapActions(useSidebarCompStore, ['toggleSidebar']),
+      ...mapActions(useComponentDisplayStore, ['toggleSidebarVisibility']),
+      ...mapActions(useFilesAndFoldersStore, ['changeActiveFolder', 'openTrash', 'closeTrash']),
+      home(){
+        this.changeActiveFolder([]);
+        this.closeTrash();
+      },
       openSearch(){
         console.log("Open Search");
       },
-      openTrash(){
-        console.log("Open Trash");
-      }
     }
   }
 </script>

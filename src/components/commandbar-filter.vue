@@ -18,9 +18,9 @@
 </template>
 
 <script>
+  import { mapActions } from 'pinia';
+  import { useFilesAndFoldersStore } from '../stores/use-files-and-folders-store.js';
   import '../assets/css/commandbar.scss';
-  import { useFoldersStore } from '../stores/stores.js';
-  import { mapState, mapActions } from 'pinia';
 
 	export default {
 		data() {
@@ -32,7 +32,7 @@
 			}
 		},
     methods: {
-      ...mapActions(useFoldersStore, ['changeFilter']),
+      ...mapActions(useFilesAndFoldersStore, ['changeFilter']),
       handleFilterInput(){
         this.changeFilter(this.filterOptions);
       }

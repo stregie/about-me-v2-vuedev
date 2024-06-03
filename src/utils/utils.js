@@ -118,5 +118,4 @@ export const removeHighlight = (element) => {
     element.previousElementSibling.classList.remove("highlight");
     element.classList.remove("highlight");
   }
-
-}
+};

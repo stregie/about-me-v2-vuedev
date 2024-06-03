@@ -19,11 +19,6 @@
   import { formatSize } from '../utils/utils.js';
 
 	export default {
-		data() {
-			return {
-        
-			}
-		},
     computed: {
       ...mapState(useUploadStore, ['fileInput', 'serverResponse']),
     },

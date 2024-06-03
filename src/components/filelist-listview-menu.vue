@@ -46,12 +46,7 @@
       ...mapState(useFoldersStore, ['activeFolder']),
     },
     methods: {
-      ...mapActions(useFoldersStore, ['changeActiveFolder']),
       ...mapActions(useFilesStore, ['moveFileToTrash']),
-      jumpToFolder(index){
-        const newActiveFolder = this.activeFolder.slice(0, index);
-        this.changeActiveFolder(newActiveFolder);
-      },
       openDropdown(){
         this.dropdownDisplay = true;
       },

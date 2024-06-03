@@ -1,6 +1,6 @@
 <template>
   <div id = "breadcrumb">
-    <ol class = "breadcrumb mb-1">
+    <ol v-if = "!trashActive" class = "breadcrumb mb-1">
       <li class = "breadcrumb-item">
         <label @click = "jumpToFolder(0)">Root</label>
       </li>
@@ -8,38 +8,34 @@
         <label @click = "jumpToFolder(index + 1)">{{ folder }}</label>
       </li>
     </ol>
+    <ol v-else class = "breadcrumb mb-1">
+      <li class = "breadcrumb-item">
+        <label>Trash</label>
+      </li>
+    </ol>
   </div>
 </template>
 
 <script>
-  import { useFoldersStore } from '../stores/stores.js';
   import { mapState, mapActions } from 'pinia';
+  import { useFilesAndFoldersStore } from '../stores/use-files-and-folders-store.js';
 
 	export default {
-		data() {
-			return {
-
-			}
-		},
     computed: {
-      ...mapState(useFoldersStore, ['activeFolder'])
+      ...mapState(useFilesAndFoldersStore, ['activeFolder', 'trashActive']),
     },
     methods: {
-      ...mapActions(useFoldersStore, ['changeActiveFolder']),
+      ...mapActions(useFilesAndFoldersStore, ['changeActiveFolder']),
       jumpToFolder(index){
         const newActiveFolder = this.activeFolder.slice(0, index);
         this.changeActiveFolder(newActiveFolder);
       }
-     
     }
   }
 </script>
 
 <style lang = "scss" scoped>
   #breadcrumb {
-    /* background: #888; */
-    /* width: 160px;
-    height: 100vh; */
     margin-bottom: 20px;
   }
   #breadcrumb {

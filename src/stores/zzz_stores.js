@@ -89,9 +89,11 @@ export const useFoldersStore = defineStore('folders', {
   }),
   getters: {
     subFoldersInActiveFolder: (state) => {
+      console.log("old folders store");
       if (!state.folderTree) {
         return null;
       };
+
 
       let subFolders = [];
       if(state.activeFolder.length === 0){
