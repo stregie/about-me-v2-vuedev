@@ -9,17 +9,16 @@
 		<div :class = "{ blurred: modalVisible }">
 			<Sidebar />
 		</div>
+
 		<div id = "main-content" :class = "{ blurred: modalVisible }">
-			<Commandbar 
-			  @changeFileListView = "changeFileListView"/>
+			<Commandbar />
 			<Breadcrumb />
 			<div id = "file-list">
 		    <component :is = "fileListView"></component>
 			</div>
 		</div>
-		<div v-if = "modalVisible" id = "modal">
-			<DraganddropUpload />
-		</div>
+
+		<Modal />
 	</div>
 </template>
 
@@ -30,7 +29,7 @@
   import Sidebar from './sidebar.vue';
   import Commandbar from './commandbar.vue';
   import Breadcrumb from './breadcrumb.vue';
-  import DraganddropUpload from './draganddrop-upload.vue';
+  import Modal from './modal.vue';
   import ListView from './filelist-listview.vue';
   import DetailedView from './filelist-detailedview.vue';
 
@@ -42,7 +41,7 @@
 			'Breadcrumb': Breadcrumb,
       'ListView': ListView,
       'DetailedView': DetailedView,
-      'DraganddropUpload': DraganddropUpload,
+      'Modal': Modal
     },
 		async created(){
 			this.fetchFileListAll();
@@ -55,7 +54,7 @@
 			}
 		},
 		methods: {
-			...mapActions(useFilesStore, ['fetchFileListAll'])
+			...mapActions(useFilesStore, ['fetchFileListAll']),
 		}
   };
 </script>
@@ -72,17 +71,5 @@
 	}
 	.blurred {
 		filter: blur(2px);
-	}
-	#modal {
-		position: absolute;
-		top: 0px;
-		left: 0px;
-		height: 100%;
-		width: 100%;
-		background: #00000088;
-		z-index: 1200;
-		display: flex;
-		justify-content: center;
-		align-items: center;
 	}
 </style>

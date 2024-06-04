@@ -11,7 +11,7 @@
 </template>
 
 <script>
-  import { useUploadStore } from '../stores/stores.js';
+  // import { useUploadStore } from '../stores/stores.js';
   import { mapState, mapActions } from 'pinia';
   import { formatSize } from '../utils/utils.js';
 
@@ -22,12 +22,12 @@
 			}
 		},
     computed: {
-      ...mapState(useUploadStore, ['fileInput', 'serverResponse']),
+      // ...mapState(useUploadStore, ['fileInput', 'serverResponse']),
     },
     methods: {
-      ...mapActions(useUploadStore, ['uploadFiles']),
+      // ...mapActions(useUploadStore, ['uploadFiles']),
       handleChange(event){
-        this.uploadFiles(event.target.files);
+        // this.uploadFiles(event.target.files);
       },
       formatSize(size){
         return formatSize(size);

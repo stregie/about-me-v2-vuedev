@@ -72,14 +72,15 @@
     ...mapState(useFoldersStore, ['activeFolder', 'folderTree', 'loading']),
     },
     methods: {
-      ...mapActions(useComponentDisplayStore, ['toggleSidebarVisibility']),
+      ...mapActions(useComponentDisplayStore, ['changeActiveModal', 'toggleModalVisibility', 'toggleSidebarVisibility']),
       ...mapActions(useFilesAndFoldersStore, ['changeActiveFolder', 'openTrash', 'closeTrash']),
       home(){
         this.changeActiveFolder([]);
         this.closeTrash();
       },
       openSearch(){
-        console.log("Open Search");
+        this.toggleModalVisibility();
+        this.changeActiveModal("ModalSearch");
       },
     }
   }

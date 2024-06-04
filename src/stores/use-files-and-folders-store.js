@@ -4,11 +4,12 @@ import { useFoldersStore } from './use-folders-store.js';
 
 export const useFilesAndFoldersStore = defineStore('filesAndFolders', {
   state: () => ({
-    activeFolder: ['text', '04'],
+    activeFolder: [],
     filterBy: {
       filename: "",
       extension: ""
     },
+    searchBy: "",
     sortBy: {
       column: "filename",
       ascending: true
@@ -38,6 +39,13 @@ export const useFilesAndFoldersStore = defineStore('filesAndFolders', {
     
       return fileList;
     },
+    searchResults: (state) => {
+      let fileList = useFilesStore().fileListAvailable;
+      fileList = filterFiles(fileList, {filename: state.searchBy, extension: ""});
+      sortFiles(fileList, {column: "filename", ascending: true});
+      return fileList;
+    }
+
   },
   actions: {
     changeActiveFolder(pathArray){
@@ -53,6 +61,9 @@ export const useFilesAndFoldersStore = defineStore('filesAndFolders', {
         this.sortBy.column = column;
         this.sortBy.ascending = true;
       }
+    },
+    changeSearchBy(filename){
+      this.searchBy = filename;
     },
     openTrash(){
       this.trashActive = true;

@@ -30,7 +30,7 @@
 </template>
 
 <script>
-  import { useFoldersStore, useFilesStore } from '../stores/stores.js';
+  // import { useFoldersStore, useFilesStore } from '../stores/stores.js';
   import { mapState, mapActions } from 'pinia';
   
 
@@ -43,10 +43,10 @@
 			}
 		},
     computed: {
-      ...mapState(useFoldersStore, ['activeFolder']),
+      // ...mapState(useFoldersStore, ['activeFolder']),
     },
     methods: {
-      ...mapActions(useFilesStore, ['moveFileToTrash']),
+      // ...mapActions(useFilesStore, ['moveFileToTrash']),
       openDropdown(){
         this.dropdownDisplay = true;
       },
@@ -63,7 +63,7 @@
         console.log("Move", this.fileid);
       },
       async deleteFile(){
-        this.moveFileToTrash(this.fileid);
+        // this.moveFileToTrash(this.fileid);
       }
     }
   }

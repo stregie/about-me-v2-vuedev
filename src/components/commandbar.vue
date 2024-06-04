@@ -9,6 +9,10 @@
         <img :src = "'/src/assets/icons/file_upload_black_24dp.svg'" />
         Upload
       </button>
+      <button type = "button" @click = "selectCommandBarMenu('newfolder-bar')">
+        <img :src = "'/src/assets/icons/create_new_folder_black_24dp.svg'" />
+        New Folder
+      </button>
       <button type = "button" @click = "selectCommandBarMenu('filter-bar')">
         <img :src = "'/src/assets/icons/filter_alt_black_24dp.svg'" />
         Filter
@@ -38,6 +42,7 @@
   import { mapState, mapActions } from 'pinia';
   import { useComponentDisplayStore } from '../stores/use-component-display-store.js';
   
+  import CommandbarNewFolder from './commandbar-new-folder.vue';
   import CommandbarFilter from './commandbar-filter.vue';
   import CommandbarSort from './commandbar-sort.vue';
   import CommandbarUpload from './commandbar-upload.vue';
@@ -45,14 +50,15 @@
 
 	export default {
     components: {
+      'newfolder-bar': CommandbarNewFolder,
       'filter-bar': CommandbarFilter,
       'sort-bar': CommandbarSort,
       'upload-bar': CommandbarUpload,
     },
 		data() {
 			return {
-        activeCommandbarMenu: "filter-bar",
-        isCommandbarMenuHidden: true
+        activeCommandbarMenu: "newfolder-bar",
+        isCommandbarMenuHidden: false
 			}
 		},
     methods: {

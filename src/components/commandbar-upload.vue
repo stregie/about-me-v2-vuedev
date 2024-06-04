@@ -14,7 +14,7 @@
 </template>
 
 <script>
-  import { useUploadStore } from '../stores/stores.js';
+  import { useUploadStore } from '../stores/use-upload-store.js';
   import { mapState, mapActions } from 'pinia';
   import { formatSize } from '../utils/utils.js';
 

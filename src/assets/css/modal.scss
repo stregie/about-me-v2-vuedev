@@ -1,0 +1,26 @@
+@import "./variables.scss";
+
+.modal-child {
+  border: 1px solid $border-1;
+  border-radius: 15px;
+  background: $background-1;
+  box-shadow: 1px 1px 5px 1px #666;
+  overflow: hidden;
+}
+
+@media (min-width: 769px) {
+  .modal-child {
+    height: 60vh;
+    margin-bottom: 15vh;
+    width: 60vw;
+  }
+}
+
+
+@media (max-width: 768px) {
+  .modal-child {
+    height: 70vh;
+    margin-bottom: 15vh;
+    width: 90vw;
+  }
+}

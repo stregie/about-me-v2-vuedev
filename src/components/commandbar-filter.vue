@@ -3,6 +3,7 @@
     <form class = "name-filter">
       <input 
         type = "text"
+        class = "commandbar-input"
         placeholder = "Name"
         v-model = "filterOptions.filename"
         @input = "handleFilterInput" />
@@ -10,6 +11,7 @@
     <form class = "extension-filter">
       <input 
         type = "text"
+        class = "commandbar-input"
         v-model = "filterOptions.extension"
         placeholder = "Extension"
         @input = "handleFilterInput" />
@@ -45,19 +47,6 @@
 
   #commandbar-filter {
     margin: 10px 0px;
-    
-    input {
-      width: 100%;
-      border: 1px solid $border-1;
-      border-radius: 5px;
-      padding: 5px;
-      margin-bottom: 10px;
-      color: $font-light;
-    }
-    input:focus-visible {
-      outline: 2px solid $border-1;
-      box-shadow: 0px 0px 2px 2px $border-1;
-    }
   }
 
   @media (min-width: 769px) {

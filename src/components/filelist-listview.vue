@@ -2,7 +2,33 @@
   <div id = "list-view">
     <!-- <p>WindowWidth: {{ windowWidth }} mobileView: {{ mobileView }} ColumnOrder a: {{ columnOrder.action }} n: {{ columnOrder.name }} e: {{ columnOrder.ext }} s: {{ columnOrder.size }} d: {{columnOrder.date }}</p> -->
 
+    
     <div id = "list-view-table">
+      <template v-if = "isFolderEmpty">
+        <div
+          class = "grid-item grid-folder folder-action"
+          :style = "{'order': columnOrder.action + 5}">
+        </div>
+        <div
+          class = "grid-item grid-folder folder-name empty-folder"
+          :style = "{'order': columnOrder.name + 5}">
+          This folder is empty. Empty folders are not permanent.
+        </div>
+        <div
+          class = "grid-item grid-folder folder-ext"
+          :style = "{'order': columnOrder.ext + 5}">
+        </div>
+        <div
+          class = "grid-item grid-folder folder-size"
+          :style = "{'order': columnOrder.size + 5}"
+          @click = "changeFolder(folder)">
+        </div>
+        <div
+          class = "grid-item grid-folder folder-date"
+          :style = "{'order': columnOrder.date + 5}">
+        </div>
+      </template>
+
       <template v-for = "(folder, index) in foldersToDisplay">
         <div
           class = "grid-item grid-folder folder-action"
@@ -109,6 +135,17 @@
     },
     computed: {
       ...mapState(useFilesAndFoldersStore, ['activeFolder', 'foldersToDisplay', 'filesToDisplay']),
+      isFolderEmpty(){
+        if (!this.foldersToDisplay || !this.filesToDisplay) { // null -> false. [] -> true
+          return true;
+        } else {
+          if (this.foldersToDisplay.length === 0 && this.filesToDisplay.length === 0) {
+            return true;
+          } else {
+            return false;
+          }
+        }
+      },
       columnOrder() {
         if(this.mobileView) {
           return {
@@ -161,3 +198,11 @@
     }
   }
 </script>
+
+<style lang = "scss" scoped>
+  .empty-folder {
+    text-align: center;
+    font-weight: 400;
+    font-style: italic;
+  }
+</style>

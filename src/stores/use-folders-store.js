@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import { useFilesStore } from './use-files-store.js';
 import { useFilesAndFoldersStore } from './use-files-and-folders-store.js';
-import { pathToString, readNode, updateNode, createFolderTree } from '../utils/foldertree.js';
+import { pathToString, readNode, insertNode, updateNode, createFolderTree } from '../utils/foldertree.js';
 
 
 export const useFoldersStore = defineStore('folders', {
@@ -36,6 +36,11 @@ export const useFoldersStore = defineStore('folders', {
     createTree(){ // OK
       const fileListAll = useFilesStore().fileListAll;
       this.folderTree = createFolderTree(fileListAll);
+    },
+    createNewFolder(folderName){
+      const activeFolder = useFilesAndFoldersStore().activeFolder;
+      const nodeToInsert = {"name": folderName, "expanded": false, "children": []}
+      this.folderTree = insertNode(this.folderTree, activeFolder, nodeToInsert);
     },
     toggleExpanded(pathArray){
       let node = readNode(this.folderTree, pathArray);
