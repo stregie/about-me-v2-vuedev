@@ -35,7 +35,10 @@
           :style = "{'order': 5 * index + columnOrder.action + 5}"
           @mouseenter = "highlightRow"
           @mouseleave = "removeHighlight">
-          <Listview-Menu :type = "'folder'" :folder = "folder" />
+          <Listview-Menu 
+            :entryType = "'folder'"
+            :folderName = "folder"
+            :path = "activeFolder" />
         </div>
         <div
           class = "grid-item grid-folder folder-name"
@@ -74,7 +77,9 @@
           :style = "{'order': 5 * index + columnOrder.action + 3000}"
           @mouseenter = "highlightRow"
           @mouseleave = "removeHighlight">
-          <Listview-Menu :type = "'file'" :fileid = "file.fileid" />
+          <Listview-Menu
+            :entryType = "'file'"
+            :fileMetaData = "file" />
         </div>
         <div 
           class = "grid-item grid-file file-name"
