@@ -23,10 +23,10 @@
     </button>
     <button
       type = "button"
-      @click = "changeSortOrder('date')">
+      @click = "changeSortOrder('uploaddate')">
       Date
-      <span v-show = "sortBy.column === 'date' && sortBy.ascending">▲</span>
-      <span v-show = "sortBy.column === 'date' && !sortBy.ascending">▼</span>
+      <span v-show = "sortBy.column === 'uploaddate' && sortBy.ascending">▲</span>
+      <span v-show = "sortBy.column === 'uploaddate' && !sortBy.ascending">▼</span>
     </button>
   </div>
 </template>

@@ -1,16 +1,18 @@
 <template>
   <div id = "commandbar-upload">
-    <label for = "commandbar-fileinput">Browse files...</label>
-    <input
-      id = "commandbar-fileinput"
-      type = "file"
-      multiple = "true"
-      @change = "handleChange" />
+    <form id = "upload-form">
+      <label for = "commandbar-fileinput">Browse files...</label>
+      <input
+        id = "commandbar-fileinput"
+        type = "file"
+        multiple = "true"
+        @change = "handleChange" />
+    </form>
+    
+    <div v-show = "uploadResponse" id = "upload-responses">
+      <p>{{ uploadResponse }}</p>
+    </div>
   </div>
-  <!-- <p>Server Response: {{ serverResponse }}</p> -->
-  <!-- <ul>
-    <li v-for = "x in fileInput">{{ x.name }}, Size: {{ formatSize(x.size) }}</li>
-  </ul> -->
 </template>
 
 <script>
@@ -19,13 +21,19 @@
   import { formatSize } from '../utils/utils.js';
 
 	export default {
+    data() {
+      return{
+        
+      }
+    },
     computed: {
-      ...mapState(useUploadStore, ['fileInput', 'serverResponse']),
+      ...mapState(useUploadStore, ['fileInput', 'existingFiles', 'uploadResponse']),
     },
     methods: {
-      ...mapActions(useUploadStore, ['uploadFiles']),
+      ...mapActions(useUploadStore, ['handleUpload']),
       handleChange(event){
-        this.uploadFiles(event.target.files);
+        this.handleUpload(event.target.files);
+        // this.uploadFiles(event.target.files);
       },
       formatSize(size){
         return formatSize(size);
@@ -36,6 +44,18 @@
 
 <style lang = "scss" scoped>
   @import "../assets/css/commandbar.scss";
+
+  
+  #upload-responses{
+    display: inline-block;
+    font-size: 0.9rem;
+    margin-top: 10px;
+    margin-left: 10px;
+    max-width: calc(100% - 200px);
+    p {
+      margin-bottom: 0px;
+    }
+  }
 
   #commandbar-upload {
     padding: 20px;
@@ -51,5 +71,9 @@
     input {
       display: none;
     }
+    #upload-form {
+      display: inline-block;
+    }
   }
+
 </style>

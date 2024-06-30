@@ -50,11 +50,46 @@ export const useFilesStore = defineStore('files', {
         }
       }
     },
+    async downloadFile(fileid){
+      console.log("downloadFile", fileid);
+      window.location.href = `/vueapi/file?id=${fileid}`;
+    },
     async moveFileToTrash(fileid){
-      console.log(fileid, "moved to Trash");
+      try {
+        const response = await fetch(`/vueapi/move-to-trash?id=${fileid}`, {
+          method: "POST"
+        });
+        const serverResponse = await response.text();
+        console.log(serverResponse);
+      } catch (error) {
+        console.error(error.message);
+      }
+    },
+    async restoreFileFromTrash(fileid){
+      try {
+        const response = await fetch(`/vueapi/restore-from-trash?id=${fileid}`, {
+          method: "POST"
+        });
+        const serverResponse = await response.text();
+        console.log(serverResponse);
+      } catch (error) {
+        console.error(error.message);
+      } finally {
+        this.fetchFileListAll();
+      }
     },
     async deleteFilePermanently(fileid){
-      console.log(fileid, "deleted permanently");
+      try {
+        const response = await fetch(`/vueapi/file?id=${fileid}`, {
+          method: "DELETE"
+        });
+        const serverResponse = await response.text();
+        console.log(serverResponse);
+      } catch (error) {
+        console.error(error.message);
+      } finally {
+        this.fetchFileListAll();
+      }
     }
   }
 });

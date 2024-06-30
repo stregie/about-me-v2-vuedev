@@ -38,9 +38,14 @@ export const useFoldersStore = defineStore('folders', {
       this.folderTree = createFolderTree(fileListAll);
     },
     createNewFolder(folderName){
-      const activeFolder = useFilesAndFoldersStore().activeFolder;
-      const nodeToInsert = {"name": folderName, "expanded": false, "children": []}
-      this.folderTree = insertNode(this.folderTree, activeFolder, nodeToInsert);
+      let trashActive = !useFilesAndFoldersStore().trashActive;
+      if(trashActive){
+        const activeFolder = useFilesAndFoldersStore().activeFolder;
+        const nodeToInsert = {"name": folderName, "expanded": false, "children": []}
+        this.folderTree = insertNode(this.folderTree, activeFolder, nodeToInsert);
+      } else {
+        console.log("Can't open new folder in trash");
+      }
     },
     toggleExpanded(pathArray){
       let node = readNode(this.folderTree, pathArray);

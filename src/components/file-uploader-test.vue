@@ -10,7 +10,9 @@
 		
 		<div>
 			<h2><b>Example 02:</b> Upload</h2>
+			<p>Sends files in one request</p>
 			<label>Path</label><input type = "text" v-model = "ex02path" /><br />
+			<p>Path example: /folder/subfolder/</p>
 			
 			<input type = "file" @change = "ex02onChange" multiple = "true" />
 			<button type = "button" @click = "ex02submitFiles">Submit</button>
@@ -57,16 +59,39 @@
 
 		<div>
 			<h2><b>Example 07:</b> Download file</h2>
-			<a href = "/vueapi/file?id=c5eb0903-ce68-4e97-8d67-4123cce0b0e8">Download file</a>
+			<a href = "/vueapi/file?id=322678ad-32ba-40a1-90f0-fd82755b533azzzz">Download file</a>
 		</div>
 
 		<div>
-			<h2><b>Example 08:</b> Delete file</h2>
+			<h2><b>Example 08:</b> Delete</h2>
 			<input v-model = "ex08fileid">
 			<p>File id: {{ ex08fileid }}</p>
 			<button @click = "ex08delete">Delete</button>
 			<p>Server response {{ ex08data }}</p>
 		</div>
+
+		<div>
+			<h2><b>Example 09:</b> Trash</h2>
+			<input v-model = "ex09fileid">
+			<p>File id: {{ ex08fileid }}</p>
+			<button @click = "ex09moveToTrash">Move to Trash</button>
+			<button @click = "ex09restoreFromTrash">Restore from Trash</button>
+			<p>Server response {{ ex09data }}</p>
+		</div>
+
+
+
+		<!-- <div>
+			<h2><b>Example 09:</b> Upload separatedly</h2>
+			<p>Sends one file per request in one request</p>
+			<label>Path</label><input type = "text" v-model = "ex09path" /><br />
+			<p>Path example: /folder/subfolder/</p>
+			
+			<input type = "file" @change = "ex09onChange" multiple = "true" />
+			<button type = "button" @click = "ex09submitFiles">Submit</button>
+			
+			<p>Server response: {{ ex09serverResponse }}</p>
+		</div> -->
 	</div>
 </template>
 
@@ -83,7 +108,9 @@
 				ex05data: {},
 				ex06data: {},
 				ex08fileid: "",
-				ex08data: ""
+				ex08data: "",
+				ex09fileid: "",
+				ex09data: ""
 			}
 		},
     methods: {
@@ -135,14 +162,55 @@
 				const response = await fetch('/vueapi/foldertree/');
         this.ex06data = await response.json();
       },
-			async ex08delete(){
-				
-				
+			async ex08delete(){			
 				const response = await fetch(`/vueapi/file?id=${this.ex08fileid}`, {
 					method: "DELETE",
 				});
 				this.ex08data = await response.text();
+			},
+
+			async ex09moveToTrash(){
+				const response = await fetch(`/vueapi/move-to-trash?id=${this.ex09fileid}`, {
+					method: "POST",
+				});
+				this.ex09data = await response.text();
+			},
+			async ex09restoreFromTrash(){
+				const response = await fetch(`/vueapi/restore-from-trash?id=${this.ex09fileid}`, {
+					method: "POST",
+				});
+				this.ex09data = await response.text();
 			}
+// 			ex09onChange(event){
+// 				this.ex09fileInput = [...event.target.files];
+// 			},
+// 			async ex09submitFiles(){
+// 				if(this.ex09path === null){
+// 					alert("No path specified!");
+// 					return;
+// 				}
+//         try {
+//         	let uploadedFiles = [];
+// 					if(this.ex09fileInput){
+// 						for (let i = 0; i < this.ex09fileInput.length; i++) {
+// 							const formData = new FormData();
+// 							formData.append('file', this.ex02fileInput[i]);          
+// 							formData.append('path', this.ex02path);
+// 		          const response = await fetch('/vueapi/upload-one/', {
+// 		            method: "PUT",
+// 		            body: formData
+// 		          });
+// 						}
+// 					}
+// 
+// 					
+// 
+// 	          const result = await response.text();
+// 	          this.ex09serverResponse = result;
+//         } catch (error) {          
+//           this.ex09serverResponse = error;
+//         }
+// 			},
     }
   }
 </script>

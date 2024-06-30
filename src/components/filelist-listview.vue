@@ -85,8 +85,9 @@
           class = "grid-item grid-file file-name"
           :style = "{'order': 5 * index + columnOrder.name + 3000}"
           @mouseover = "highlightRow"
-          @mouseleave = "removeHighlight">
-          {{ file.filename}}
+          @mouseleave = "removeHighlight"
+          @click = "downloadFile(file.fileid)">
+          {{ file.filename }}
         </div>
         <div
           class = "grid-item grid-file file-ext"
@@ -116,6 +117,7 @@
 
 <script>
   import { mapState, mapActions } from 'pinia';
+  import { useFilesStore } from '../stores/use-files-store.js';
   import { useFilesAndFoldersStore } from '../stores/use-files-and-folders-store.js';
   import { formatSize, formatDate, highlightRow, removeHighlight } from '../utils/utils.js';
   import FilelistMenu from './filelist-listview-menu.vue';
@@ -141,10 +143,13 @@
     computed: {
       ...mapState(useFilesAndFoldersStore, ['activeFolder', 'foldersToDisplay', 'filesToDisplay']),
       isFolderEmpty(){
-        if (!this.foldersToDisplay || !this.filesToDisplay) { // null -> false. [] -> true
+        console.log("this.foldersToDisplay", this.foldersToDisplay);
+        console.log("this.filesToDisplay", this.filesToDisplay);
+    
+        if (!this.foldersToDisplay || !this.filesToDisplay) { 
           return true;
         } else {
-          if (this.foldersToDisplay.length === 0 && this.filesToDisplay.length === 0) {
+          if (this.foldersToDisplay.length === 0 && this.filesToDisplay.length === 0) { // null -> false. [] -> true
             return true;
           } else {
             return false;
@@ -172,9 +177,9 @@
       }
     },
     methods: {
+      ...mapActions(useFilesStore, ['downloadFile']),
       handleResize(){
         this.windowWidth = window.innerWidth;
-        console.log("resize");
         if (window.innerWidth < 768) {
           this.mobileView = true;
         } else {
@@ -183,10 +188,6 @@
       },
       changeFolder(folder){
         this.activeFolder.push(folder);
-      },
-      downloadFile(id){
-        console.log("Download", this.fileid);
-        window.location.href = '/vueapi/file?id=c5eb0903-ce68-4e97-8d67-4123cce0b0e8';
       },
       formatSize(bytes){
         return formatSize(bytes);

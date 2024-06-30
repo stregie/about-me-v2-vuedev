@@ -1,5 +1,5 @@
 <template>
-	<div class = "minisite-info-dummy">
+	<div class = "minisite-info-dummy d-none">
 		Fileuploader.
 		<router-link to = "/file-uploader-test/">Test</router-link>
 	  Viewport width: {{ viewportWidth }}
@@ -55,6 +55,22 @@
 		},
 		methods: {
 			...mapActions(useFilesStore, ['fetchFileListAll']),
+			dragstartHandler(){
+				console.log("dragstartHandler");
+			},
+			dragendHandler(){
+				console.log("dragendHandler");
+			},
+			dragenterHandler(){
+				console.log("dragenterHandler");
+			},
+			dragleaveHandler(){
+				console.log("dragleaveHandler");
+			},
+			drophandler(event){
+				event.preventDefault();
+				console.log("drop");
+			}
 		}
   };
 </script>

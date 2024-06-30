@@ -1,4 +1,12 @@
 @import "./variables.scss";
+a {
+  color: inherit;
+  text-decoration: inherit;
+}
+a:hover {
+  color: inherit;
+}
+
 #fileuploader-minisite{
   // scrollbar-color: red orange;
   height: 100vh;
@@ -11,7 +19,7 @@
   border-right: 1px solid $border-1;
   color: $font-light;
   display: grid;
-  grid-template-rows: 100px calc(100vh - 180px) 80px;
+  grid-template-rows: 125px calc(100vh - 180px) 80px;
   font-weight: 500;
   height: 100%;
   position: relative;
@@ -29,9 +37,10 @@
   }
 }
 #sidebar-menu {
-  padding-top: 20px;
+  
 }
 #sidebar-folders{
+  // margin-top: 25px;
   overflow-y: auto;
   scrollbar-width: thin;
 }
@@ -125,6 +134,14 @@
   background: $background-1;
 }
 
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+  
+  label {
+    cursor: not-allowed;
+  }
+}
 
 
 
@@ -136,6 +153,9 @@
   #sidebar-toggler-command-bar,
   #sidebar-toggler {
     display: none;
+  }
+  #sidebar-menu {
+    padding-top: 40px;
   }
   #main-content {
     padding: 40px;
@@ -160,6 +180,9 @@
   #sidebar.hidden {
     left: -$sidebarWidth;
     visibility: hidden;
+  }
+  #sidebar-menu {
+    padding-top: 10px;
   }
   #main-content {
     padding: 10px;

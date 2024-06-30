@@ -49,8 +49,8 @@
     </div>
 
     <div id = "sidebar-storage">
-      <label>Storage: 438 MB / 5 GB</label>
-      <progress value = "30" max = "100"></progress>
+      <label>Storage: {{ usedSpace }} MB / 250 MB</label>
+      <progress :value = "usedSpace" max = "250"></progress>
     </div>
   </div>
 </template>
@@ -70,6 +70,7 @@
     computed: {
     ...mapState(useComponentDisplayStore, ['sidebarVisible']),
     ...mapState(useFoldersStore, ['activeFolder', 'folderTree', 'loading']),
+    ...mapState(useFilesAndFoldersStore, ['usedSpace'])
     },
     methods: {
       ...mapActions(useComponentDisplayStore, ['changeActiveModal', 'toggleModalVisibility', 'toggleSidebarVisibility']),

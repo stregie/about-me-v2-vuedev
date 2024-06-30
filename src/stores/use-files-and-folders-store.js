@@ -19,7 +19,7 @@ export const useFilesAndFoldersStore = defineStore('filesAndFolders', {
   getters: {
     foldersToDisplay: (state) => {
       if(state.trashActive) {
-        return null;
+        return [];
       } else {
         let folderList = useFoldersStore().subFoldersInActiveFolder;
         folderList = filterFolders(folderList, state.filterBy);
@@ -28,6 +28,7 @@ export const useFilesAndFoldersStore = defineStore('filesAndFolders', {
       }
     },
     filesToDisplay: (state) => {
+      console.log(state.sortBy);
       let fileList = [];
       if(state.trashActive) {
         fileList = useFilesStore().fileListTrash;
@@ -44,11 +45,21 @@ export const useFilesAndFoldersStore = defineStore('filesAndFolders', {
       fileList = filterFiles(fileList, {filename: state.searchBy, extension: ""});
       sortFiles(fileList, {column: "filename", ascending: true});
       return fileList;
+    },
+    usedSpace: (state) => {
+      let allFilesSize = 0;
+      let fileListAll = useFilesStore().fileListAll;
+      if (fileListAll){
+        fileListAll.forEach(file => {
+          allFilesSize += file.size;
+        });
+      }
+      return Math.floor(allFilesSize / 1048576); // in MBs
     }
-
   },
   actions: {
     changeActiveFolder(pathArray){
+      this.trashActive = false;
       this.activeFolder = pathArray;
     },
     changeFilter(filterOptions){
@@ -108,6 +119,7 @@ function filterFolders(folderList, filterBy) {
 };
 
 function sortFiles(fileList, sortBy) {
+  console.log(fileList);
   if (!fileList) {
     return null;
   } else {

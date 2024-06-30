@@ -1,5 +1,5 @@
 <template>
-  <div id = "modal-move" class = "modal-child" @click = "preventClosing">
+  <div id = "modal-move" class = "modal-child">
     <ul>
       <li v-for = "folder in foldersToDisplay">{{ folder }}</li>
     </ul>
@@ -26,9 +26,7 @@
       
     },
     methods: {
-      preventClosing() {
-        event.stopPropagation();
-      }
+
     }
   }
 </script>

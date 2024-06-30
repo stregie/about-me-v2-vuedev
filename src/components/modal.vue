@@ -4,21 +4,21 @@
     v-if = "modalVisible" 
     @click = "closeModal"
     >
-    <component :is = "activeModalComponent" />
+    <component :is = "activeModalComponent" @click = "preventCloseInsideModal"/>
   </div>
 </template>
 
 <script>
   import { mapState, mapActions } from 'pinia';
   import { useComponentDisplayStore } from '../stores/use-component-display-store.js';
-  import DraganddropUpload from './draganddrop-upload.vue';
+  import ModalDraganddrop from './modal-draganddrop.vue';
   import ModalMove from './modal-move.vue';
   import ModalSearch from './modal-search.vue';
  
 
 	export default {
     components: {
-      'DraganddropUpload': DraganddropUpload,
+      'ModalDraganddrop': ModalDraganddrop,
       'ModalMove': ModalMove,
       'ModalSearch': ModalSearch,
     },
@@ -27,6 +27,9 @@
     },
     methods: {
       ...mapActions(useComponentDisplayStore, ['closeSidebar', 'closeModal']),
+      preventCloseInsideModal(){
+        event.stopPropagation();
+      }
     }
   }
 </script>

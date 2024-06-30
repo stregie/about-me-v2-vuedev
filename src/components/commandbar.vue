@@ -1,17 +1,17 @@
 <template>
   <div id = "command-bar">
-    <div>
+    <div id = "command-bar-buttons">
       <button type = "button" @click = "toggleSidebarVisibility" id = "sidebar-toggler-command-bar">
         <img :src = "'/src/assets/icons/menu_black_24dp.svg'" />
         Sidebar
       </button>
-      <button type = "button" @click = "selectCommandBarMenu('upload-bar')">
-        <img :src = "'/src/assets/icons/file_upload_black_24dp.svg'" />
-        Upload
-      </button>
       <button type = "button" @click = "selectCommandBarMenu('newfolder-bar')">
         <img :src = "'/src/assets/icons/create_new_folder_black_24dp.svg'" />
         New Folder
+      </button>
+      <button type = "button" @click = "selectCommandBarMenu('upload-bar')">
+        <img :src = "'/src/assets/icons/file_upload_black_24dp.svg'" />
+        Upload
       </button>
       <button type = "button" @click = "selectCommandBarMenu('filter-bar')">
         <img :src = "'/src/assets/icons/filter_alt_black_24dp.svg'" />
@@ -25,15 +25,15 @@
         <img :src = "'/src/assets/icons/view_list_black_24dp.svg'" />
         List View
       </button>
-      <button type = "button" @click = "changeFileListView('DetailedView')">
+      <button type = "button" @click = "changeFileListView('DetailedView')" disabled>
         <img :src = "'/src/assets/icons/grid_view_black_24dp.svg'" />
         Detailed View
       </button>
-      <div id = "commandbar-menu" :class = "{ hidden: isCommandbarMenuHidden }">
-        <KeepAlive>
-          <component :is = "activeCommandbarMenu"></component>
-        </KeepAlive>
-      </div>
+    </div>
+    <div id = "commandbar-menu" :class = "{ hidden: isCommandbarMenuHidden }">
+      <KeepAlive>
+        <component :is = "activeCommandbarMenu"></component>
+      </KeepAlive>
     </div>
   </div>
 </template>
@@ -57,8 +57,8 @@
     },
 		data() {
 			return {
-        activeCommandbarMenu: "newfolder-bar",
-        isCommandbarMenuHidden: false
+        activeCommandbarMenu: "upload-bar",
+        isCommandbarMenuHidden: true
 			}
 		},
     methods: {
@@ -80,6 +80,7 @@
 
   #commandbar-menu {
     max-height: 160px;
+    max-width: 800px;
     transition: max-height 0.2s linear, height 0.2s linear;
     overflow: hidden;
   }
@@ -87,6 +88,7 @@
   #commandbar-menu.hidden {
     max-height: 0px;
   }
+
 
   @media (min-width: 769px) {
   

@@ -1,5 +1,5 @@
 <template>
-  <div id = "search-modal" class = "modal-child" @click = "preventClosing">
+  <div id = "search-modal" class = "modal-child">
     <div id = "search-bar">
       <div>
         <img :src = "'/src/assets/icons/search_black_24dp.svg'" />
@@ -52,9 +52,6 @@
         this.closeSidebar();
         this.changeSearchBy("");
       },
-      preventClosing() {
-        event.stopPropagation();
-      }
     }
   }
 </script>
