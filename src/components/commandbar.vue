@@ -6,7 +6,7 @@
         Sidebar
       </button>
       <button type = "button" @click = "selectCommandBarMenu('newfolder-bar')">
-        <img :src = "'/src/assets/icons/create_new_folder_black_24dp.svg'" />
+        <img :src = "newFolderIcon" />
         New Folder
       </button>
       <button type = "button" @click = "selectCommandBarMenu('upload-bar')">
@@ -41,6 +41,8 @@
 <script>
   import { mapState, mapActions } from 'pinia';
   import { useComponentDisplayStore } from '../stores/use-component-display-store.js';
+
+  import newFolderIcon from '/src/assets/icons/create_new_folder_black_24dp.svg';
   
   import CommandbarNewFolder from './commandbar-new-folder.vue';
   import CommandbarFilter from './commandbar-filter.vue';
@@ -58,7 +60,8 @@
 		data() {
 			return {
         activeCommandbarMenu: "upload-bar",
-        isCommandbarMenuHidden: true
+        isCommandbarMenuHidden: true,
+        newFolderIcon: newFolderIcon
 			}
 		},
     methods: {

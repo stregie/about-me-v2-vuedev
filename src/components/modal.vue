@@ -44,7 +44,7 @@
     height: 100%;
     width: 100%;
     background: #00000088;
-    z-index: 1200;
+    z-index: 95;
     display: flex;
     justify-content: center;
     align-items: center;

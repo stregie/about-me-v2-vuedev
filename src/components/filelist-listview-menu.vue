@@ -11,7 +11,6 @@
     <div
       class = "filelist-menu-dropdown menu-dropdown"
       v-show = "dropdownDisplay">
-      <!-- <button @click = "testServer">test</button> -->
       <ul>
         <template v-if = "entryType === 'folder'">
           <!-- <li>Folder</li> -->
@@ -93,13 +92,8 @@
 		data() {
 			return {
         dropdownDisplay: false,
-
-        // 'dropdownDisplay': 'hidden'
 			}
 		},
-    computed: {
-      // ...mapState(useFoldersStore, ['activeFolder']),
-    },
     methods: {
       ...mapActions(useFilesStore, ['downloadFile', 'moveFileToTrash', 'restoreFileFromTrash', 'deleteFilePermanently']),
       openDropdown(){
@@ -120,26 +114,12 @@
       deleteFolderToTrash(){
         console.log("delete folder to trash", this.folderName);
       },
-      // downloadFile(){
-      //   console.log("Download file", this.fileMetaData.filename);
-      //   // window.location.href = '/vueapi/file?id=c5eb0903-ce68-4e97-8d67-4123cce0b0e8';
-      // },
       renameFile(){
         console.log("Rename file", this.fileMetaData.filename);
       },
       moveFile(){
         console.log("Move file", this.fileMetaData.filename);
       },
-      // async deleteFileToTrash(){
-      //   console.log("Move file", this.fileMetaData.filename);
-      //   // this.moveFileToTrash(this.fileid);
-      // },
-      // restoreFromTrash(){
-      //   console.log("RestoreFromTrash", this.fileMetaData.filename);
-      // },
-      // deleteFilePermanently(){
-      //   console.log("deleteFilePermanently", this.fileMetaData.filename);
-      // }
     }
   }
 </script>
@@ -151,7 +131,6 @@
     background: red;
   }
   .dropdown-menu-item {
-/*    border: 1px solid red !important;*/
     width: 100%;
     text-align: left;
     cursor: pointer;

@@ -11,8 +11,8 @@ import FileUploaderTest from './components/file-uploader-test.vue';
 const router = createRouter({
   history: createWebHistory(),
   routes: [
-  	{ path: '/', component: Main },
-  	{ path: '/file-uploader-test/', component: FileUploaderTest },
+  	{ path: '/fileuploader-vue/', component: Main },
+  	{ path: '/fileuploader-vue/file-uploader-test/', component: FileUploaderTest },
   ]
 });
 

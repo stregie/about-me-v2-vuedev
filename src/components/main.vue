@@ -1,10 +1,10 @@
 <template>
-	<div class = "minisite-info-dummy d-none">
+	<div class = "minisite-info-dummy">
 		Fileuploader.
-		<router-link to = "/file-uploader-test/">Test</router-link>
+		<router-link to = "/fileuploader-vue/file-uploader-test/">Test</router-link>
 	  Viewport width: {{ viewportWidth }}
-	  
 	</div>
+
 	<div id = "fileuploader-minisite">
 		<div :class = "{ blurred: modalVisible }">
 			<Sidebar />
@@ -20,6 +20,8 @@
 
 		<Modal />
 	</div>
+
+	<div class = "footer-dummy"></div>
 </template>
 
 <script >
@@ -81,6 +83,10 @@
 		color: white;
 		line-height: 20vh;
 		padding-left: 20px;
+	}
+	.footer-dummy {
+		height: 80px; /* Same as express site */
+		background: black;
 	}
 	#fileuploader-minisite {
 		position: relative;

@@ -63,6 +63,8 @@ export const useFilesStore = defineStore('files', {
         console.log(serverResponse);
       } catch (error) {
         console.error(error.message);
+      } finally {
+        this.fetchFileListAll();
       }
     },
     async restoreFileFromTrash(fileid){

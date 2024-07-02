@@ -3,50 +3,52 @@
     <button id = "sidebar-toggler" type = "button" @click = "toggleSidebarVisibility">
       <img :src = "'/src/assets/icons/keyboard_double_arrow_left_black_24dp.svg'" />
     </button>
-    <div id = "sidebar-menu" class = "sidebar-list">
-      <ul>
-        <li>
-          <div class = "sidebar-list-item" @click = "home">
-            <button 
-              class = "sidebar-list-icon"
-              type = "button"
-            ><img :src = "'/src/assets/icons/home_black_24dp.svg'" />
-          </button>
+    <div id = "sidebar-menu">
+      <div class = "sidebar-list">
+        <ul>
+          <li>
+            <div class = "sidebar-list-item" @click = "home">
+              <button 
+                class = "sidebar-list-icon"
+                type = "button"
+              ><img :src = "'/src/assets/icons/home_black_24dp.svg'" />
+            </button>
 
-            <div class = "sidebar-list-text">Home</div> 
-          </div>
-        </li>
-        <li>
-          <div class = "sidebar-list-item" @click = "openSearch">
-            <button 
-              class = "sidebar-list-icon"
-              type = "button"
-            ><img :src = "'/src/assets/icons/search_black_24dp.svg'" /></button>
+              <div class = "sidebar-list-text">Home</div> 
+            </div>
+          </li>
+          <li>
+            <div class = "sidebar-list-item" @click = "openSearch">
+              <button 
+                class = "sidebar-list-icon"
+                type = "button"
+              ><img :src = "'/src/assets/icons/search_black_24dp.svg'" /></button>
 
-            <div class = "sidebar-list-text">Search</div> 
-          </div>
-        </li>
+              <div class = "sidebar-list-text">Search</div> 
+            </div>
+          </li>
 
-        <li>
-          <div class = "sidebar-list-item" @click = "openTrash">
-            <button 
-              class = "sidebar-list-icon"
-              type = "button"
-            ><img :src = "'/src/assets/icons/folder_delete_black_24dp.svg'" /></button>
-  
-            <div class = "sidebar-list-text">Trash</div> 
-          </div>
-        </li>
-      </ul>
+          <li>
+            <div class = "sidebar-list-item" @click = "openTrash">
+              <button 
+                class = "sidebar-list-icon"
+                type = "button"
+              ><img :src = "'/src/assets/icons/folder_delete_black_24dp.svg'" /></button>
+    
+              <div class = "sidebar-list-text">Trash</div> 
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div id = "sidebar-folders" class = "sidebar-list">
+        <Node :tree = "folderTree" :parentPath = "[]" />
+        <ul>
+          <li v-for = "n in 30" :key = "n">Dummy {{ n }}</li>
+        </ul>
+      </div>
     </div>
 
-    <div id = "sidebar-folders" class = "sidebar-list">
-      <Node :tree = "folderTree" :parentPath = "[]" />
-      <!-- <ul>
-        <li>Dummy</li><li>Dummy</li><li>Dummy</li><li>Dummy</li><li>Dummy</li><li>Dummy</li><li>Dummy</li><li>Dummy</li><li>Dummy</li><li>Dummy</li><li>Dummy</li><li>Dummy</li><li>Dummy</li>
-        <li>Dummy</li><li>Dummy</li><li>Dummy</li><li>Dummy</li><li>Dummy</li><li>Dummy</li><li>Dummy</li><li>Dummy</li><li>Dummy</li><li>Dummy</li><li>Dummy</li><li>Dummy</li><li>Dummy</li>
-      </ul> -->
-    </div>
 
     <div id = "sidebar-storage">
       <label>Storage: {{ usedSpace }} MB / 250 MB</label>
@@ -86,3 +88,7 @@
     }
   }
 </script>
+
+<style lang = "scss">
+  @import "../assets/css/sidebar.scss";
+</style>

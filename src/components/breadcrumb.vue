@@ -35,18 +35,29 @@
 </script>
 
 <style lang = "scss" scoped>
+  @import "../assets/css/commandbar.scss";
+
   #breadcrumb {
     margin-bottom: 20px;
   }
+
+  .breadcrumb-item:before {
+    font-weight: bold;
+  }
+  
   #breadcrumb {
     ol {
       li {
+        color: $font-dark;
         font-size: 0.8rem;
+
+        
       }
       li:last-child{
         color: Maroon;
         font-weight: bold;
       }
+
     }
   }
 </style>

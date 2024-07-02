@@ -1,0 +1,118 @@
+@import "./variables.scss";
+
+#sidebar {
+  background: $background-2;
+  border-right: 1px solid $border-1;
+  color: $font-light;
+  display: grid;
+  grid-template-rows: calc(100vh - 140px) 60px; /* Where storage indicator is 60px, footer is 80px. */
+  font-weight: 500;
+  height: 100%;
+  position: relative;
+  z-index: 90;
+}
+
+#sidebar-toggler {
+  background: none;
+  border: none;
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  
+  img {
+    opacity: 50%;
+  }
+}
+#sidebar-menu {
+  overflow:hidden;
+}
+#sidebar-folders{
+  // margin-top: 25px;
+  height: 100%;
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+
+.sidebar-list{
+  ul {
+    margin: 0;
+    list-style: none;
+    padding-left: 0px;
+  }
+  .sidebar-list-item {
+    display: flex;
+    align-items: center;
+  }
+  .sidebar-list-item.active{
+    white-space: nowrap;
+  }
+  .sidebar-list-item:hover{
+    background: $background-3;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+}
+
+.sidebar-list-icon {
+  background: none;
+  border: none;
+  color: $font-light;
+  font-weight: 500;  
+  img {
+    // specify width and height!
+    filter: opacity(50%);
+  }
+}
+.sidebar-list-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#sidebar-storage{
+  // position: absolute;
+  // bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  width: 100%;
+  label {
+    font-size: 0.8rem;
+    font-weight: 400;
+    margin-bottom: 0px;
+  }
+  progress{
+    background: $background-3;
+    border: none;
+    height: 3px;
+    color: black;
+    width: 100%;
+  }
+}
+@media (min-width: 769px) {
+  #sidebar-toggler-command-bar,
+  #sidebar-toggler {
+    display: none;
+  }
+  #sidebar-menu {
+    padding-top: 45px;
+  }
+}
+@media (max-width: 768px) {
+  $sidebarWidth: 80%;
+  #sidebar {
+    position: absolute;
+    width: $sidebarWidth;
+    visibility: visible;
+    left: 0;
+    transition: left 0.3s ease-in-out, visibility 0.3s ease-in-out;
+    font-size: 1.4rem;
+  }
+  #sidebar.hidden {
+    left: -$sidebarWidth;
+    visibility: hidden;
+  }
+  #sidebar-menu {
+    padding-top: 10px;
+  }
+}
