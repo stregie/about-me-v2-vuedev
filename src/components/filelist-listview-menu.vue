@@ -5,7 +5,7 @@
       class = "dropdown-toggler"
       @focus = "openDropdown"
       @blur = "closeDropdown">
-      <img :src = "'/src/assets/icons/more_vert_black_24dp.svg'"/>
+      <img :src = "moreIcon"/>
     </button>
     
     <div
@@ -16,19 +16,19 @@
           <!-- <li>Folder</li> -->
           <li>
             <button type = "button" class = "dropdown-menu-item" @click = "renameFolder" disabled>
-              <img :src = "'/src/assets/icons/drive_file_rename_outline_black_24dp.svg'"/>
+              <img :src = "renameIcon"/>
               <label>Rename</label>
             </button>
           </li>
           <li>
             <button type = "button" class = "dropdown-menu-item" @click = "moveFolder" disabled>
-              <img :src = "'/src/assets/icons/drive_file_move_black_24dp.svg'"/>
+              <img :src = "moveIcon"/>
               <label>Move</label>
             </button>
           </li>
           <li>
             <button type = "button" class = "dropdown-menu-item" @click = "deleteFolderToTrash">
-              <img :src = "'/src/assets/icons/delete_black_24dp.svg'"/>
+              <img :src = "deleteIcon"/>
               <label>Delete to Trash</label>
             </button>
           </li>
@@ -38,25 +38,25 @@
           <!-- <li>File available</li> -->
           <li>
             <button type = "button" class = "dropdown-menu-item" @click = "downloadFile(fileMetaData.fileid)">
-              <img :src = "'/src/assets/icons/file_download_black_24dp.svg'"/>
+              <img :src = "downloadIcon"/>
               <label>Download</label>
             </button>
           </li>
           <li>
             <button type = "button" class = "dropdown-menu-item" @click = "renameFile" disabled>
-              <img :src = "'/src/assets/icons/drive_file_rename_outline_black_24dp.svg'"/>
+              <img :src = "renameIcon"/>
               <label>Rename</label>
             </button>
           </li>
           <li>
             <button type = "button" class = "dropdown-menu-item" @click = "moveFile" disabled>
-              <img :src = "'/src/assets/icons/drive_file_move_black_24dp.svg'"/>
+              <img :src = "moveIcon"/>
               <label>Move</label>
             </button>
           </li>
           <li>
             <button type = "button" class = "dropdown-menu-item" @click = "moveFileToTrash(fileMetaData.fileid)">
-              <img :src = "'/src/assets/icons/delete_black_24dp.svg'"/>
+              <img :src = "deleteIcon"/>
               <label>Delete to Trash</label>
             </button>
           </li>
@@ -66,13 +66,13 @@
           <!-- <li>File trash</li>  -->
           <li>
             <button type = "button" class = "dropdown-menu-item" @click = "restoreFileFromTrash(fileMetaData.fileid)">
-              <img :src = "'/src/assets/icons/restore_page_black_24dp.svg'"/>
+              <img :src = "restoreIcon"/>
               <label>Restore</label>
             </button>
           </li>
           <li>
             <button type = "button" class = "dropdown-menu-item" @click = "deleteFilePermanently(fileMetaData.fileid)">
-              <img :src = "'/src/assets/icons/delete_forever_black_24dp.svg'"/>
+              <img :src = "permanentDeleteIcon"/>
               <label>Delete permanently</label>
             </button>
           </li>
@@ -85,13 +85,28 @@
 <script>
   import { useFilesStore } from '../stores/use-files-store.js';
   import { mapState, mapActions } from 'pinia';
-  
+
+  import moreIcon from '/src/assets/icons/more_vert_black_24dp.svg';
+  import renameIcon from '/src/assets/icons/drive_file_rename_outline_black_24dp.svg';
+  import moveIcon from '/src/assets/icons/drive_file_move_black_24dp.svg';
+  import deleteIcon from '/src/assets/icons/delete_black_24dp.svg';
+  import downloadIcon from '/src/assets/icons/file_download_black_24dp.svg';
+  import restoreIcon from '/src/assets/icons/restore_page_black_24dp.svg';
+  import permanentDeleteIcon from '/src/assets/icons/delete_forever_black_24dp.svg';
+
 
 	export default {
     props: ['entryType', 'folderName', 'fileMetaData', 'path'],
 		data() {
 			return {
         dropdownDisplay: false,
+        moreIcon: moreIcon, 
+        renameIcon: renameIcon,
+        moveIcon: moveIcon,
+        deleteIcon: deleteIcon,
+        downloadIcon: downloadIcon,
+        permanentDeleteIcon: permanentDeleteIcon,
+        restoreIcon: restoreIcon,
 			}
 		},
     methods: {

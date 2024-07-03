@@ -39,25 +39,25 @@
 
   #breadcrumb {
     margin-bottom: 20px;
-  }
-
-  .breadcrumb-item:before {
-    font-weight: bold;
-  }
-  
-  #breadcrumb {
     ol {
       li {
         color: $font-dark;
-        font-size: 0.8rem;
-
-        
+        font-size: 0.8rem;      
       }
+
       li:last-child{
         color: Maroon;
         font-weight: bold;
       }
+    }
 
+    label:hover{
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    .breadcrumb-item:before {
+      font-weight: bold;
     }
   }
 </style>

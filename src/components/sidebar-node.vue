@@ -11,7 +11,7 @@
             :class = "{rotated: folder.expanded, 'non-visible': folder.children.length <= 0 }"
             type = "button"
             @click = "toggleExpandedState(folder.name)"
-          ><img :src = "'/src/assets/icons/navigate_next_black_24dp.svg'" /></button>
+          ><img :src = "expandIcon" /></button>
 
           <div class = "sidebar-list-text">{{ folder.name }}</div>
         </div>
@@ -31,10 +31,17 @@
   import { useFoldersStore } from '../stores/use-folders-store.js';
   import { useFilesAndFoldersStore } from '../stores/use-files-and-folders-store.js';
   import { mapActions } from 'pinia';
+
+  import expandIcon from '/src/assets/icons/navigate_next_black_24dp.svg';
   
   export default {
     name: 'Node',
     props: ['tree', 'parentPath'],
+    data() {
+      return {
+        expandIcon: expandIcon,
+      }
+    },
     computed: {
       depth(){
          return this.parentPath.length;

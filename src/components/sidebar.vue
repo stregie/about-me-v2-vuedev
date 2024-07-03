@@ -11,7 +11,7 @@
               <button 
                 class = "sidebar-list-icon"
                 type = "button"
-              ><img :src = "'/src/assets/icons/home_black_24dp.svg'" />
+              ><img :src = "homeIcon" />
             </button>
 
               <div class = "sidebar-list-text">Home</div> 
@@ -22,7 +22,7 @@
               <button 
                 class = "sidebar-list-icon"
                 type = "button"
-              ><img :src = "'/src/assets/icons/search_black_24dp.svg'" /></button>
+              ><img :src = "searchIcon" /></button>
 
               <div class = "sidebar-list-text">Search</div> 
             </div>
@@ -33,7 +33,7 @@
               <button 
                 class = "sidebar-list-icon"
                 type = "button"
-              ><img :src = "'/src/assets/icons/folder_delete_black_24dp.svg'" /></button>
+              ><img :src = "trashIcon" /></button>
     
               <div class = "sidebar-list-text">Trash</div> 
             </div>
@@ -64,10 +64,20 @@
   import { useFilesAndFoldersStore } from '../stores/use-files-and-folders-store.js';
   import Node from './sidebar-node.vue';
 
+  import homeIcon from '/src/assets/icons/home_black_24dp.svg';
+  import searchIcon from '/src/assets/icons/search_black_24dp.svg';
+  import trashIcon from '/src/assets/icons/folder_delete_black_24dp.svg';
 
 	export default {
     components: {
       'Node': Node,
+    },
+    data(){
+      return {
+        homeIcon: homeIcon,
+        searchIcon: searchIcon,
+        trashIcon: trashIcon
+      }
     },
     computed: {
     ...mapState(useComponentDisplayStore, ['sidebarVisible']),

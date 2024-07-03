@@ -2,7 +2,7 @@
   <div id = "command-bar">
     <div id = "command-bar-buttons">
       <button type = "button" @click = "toggleSidebarVisibility" id = "sidebar-toggler-command-bar">
-        <img :src = "'/src/assets/icons/menu_black_24dp.svg'" />
+        <img :src = "menuIcon" />
         Sidebar
       </button>
       <button type = "button" @click = "selectCommandBarMenu('newfolder-bar')">
@@ -10,23 +10,23 @@
         New Folder
       </button>
       <button type = "button" @click = "selectCommandBarMenu('upload-bar')">
-        <img :src = "'/src/assets/icons/file_upload_black_24dp.svg'" />
+        <img :src = "uploadIcon" />
         Upload
       </button>
       <button type = "button" @click = "selectCommandBarMenu('filter-bar')">
-        <img :src = "'/src/assets/icons/filter_alt_black_24dp.svg'" />
+        <img :src = "filterIcon" />
         Filter
       </button>
       <button type = "button" @click = "selectCommandBarMenu('sort-bar')">
-        <img :src = "'/src/assets/icons/sort_by_alpha_black_24dp.svg'" />
+        <img :src = "sortIcon" />
         Sort by
       </button>
       <button type = "button" @click = "changeFileListView('ListView')">
-        <img :src = "'/src/assets/icons/view_list_black_24dp.svg'" />
+        <img :src = "listViewIcon" />
         List View
       </button>
       <button type = "button" @click = "changeFileListView('DetailedView')" disabled>
-        <img :src = "'/src/assets/icons/grid_view_black_24dp.svg'" />
+        <img :src = "detailedViewIcon" />
         Detailed View
       </button>
     </div>
@@ -41,9 +41,16 @@
 <script>
   import { mapState, mapActions } from 'pinia';
   import { useComponentDisplayStore } from '../stores/use-component-display-store.js';
-
-  import newFolderIcon from '/src/assets/icons/create_new_folder_black_24dp.svg';
   
+
+  import menuIcon from '/src/assets/icons/menu_black_24dp.svg';
+  import newFolderIcon from '/src/assets/icons/create_new_folder_black_24dp.svg';
+  import uploadIcon from '/src/assets/icons/file_upload_black_24dp.svg';
+  import filterIcon from '/src/assets/icons/filter_alt_black_24dp.svg';
+  import sortIcon from '/src/assets/icons/sort_by_alpha_black_24dp.svg';
+  import listViewIcon from '/src/assets/icons/view_list_black_24dp.svg';
+  import detailedViewIcon from '/src/assets/icons/grid_view_black_24dp.svg';
+
   import CommandbarNewFolder from './commandbar-new-folder.vue';
   import CommandbarFilter from './commandbar-filter.vue';
   import CommandbarSort from './commandbar-sort.vue';
@@ -61,7 +68,13 @@
 			return {
         activeCommandbarMenu: "upload-bar",
         isCommandbarMenuHidden: true,
-        newFolderIcon: newFolderIcon
+        menuIcon: menuIcon,
+        newFolderIcon: newFolderIcon,
+        uploadIcon: uploadIcon,
+        filterIcon: filterIcon,
+        sortIcon: sortIcon,
+        listViewIcon: listViewIcon,
+        detailedViewIcon: detailedViewIcon
 			}
 		},
     methods: {
