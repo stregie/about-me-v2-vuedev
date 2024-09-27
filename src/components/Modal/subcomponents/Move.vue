@@ -11,7 +11,7 @@
   import { mapState, mapActions } from 'pinia';
   // import { useComponentDisplayStore } from '../stores/use-component-display-store.js';
   // import { useFilesStore } from '../stores/use-files-store.js';
-  import { useFilesAndFoldersStore } from '../stores/use-files-and-folders-store.js';
+  import { useFilesAndFoldersStore } from '/src/stores/use-files-and-folders-store.js';
   // import { pathToArray } from '../utils/foldertree.js';
 
 	export default {
@@ -32,7 +32,7 @@
 </script>
 
 <style lang = "scss" scoped>
-  @import "../assets/css/modal.scss";
+  @import "/src/assets/css/modal.scss";
   ul {
     list-style-type: none;
   }

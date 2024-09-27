@@ -1,6 +1,7 @@
 <template>  
   <div id = "test-page">
-		<h1>File uploader test</h1>
+		<h1>File manager test</h1>
+		<p>A page to test the main features of the app.</p>
 		
 		<div>
 			<h2><b>Example 01:</b> Fetch</h2>

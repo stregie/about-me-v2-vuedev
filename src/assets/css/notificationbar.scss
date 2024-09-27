@@ -1,0 +1,30 @@
+@import "./variables.scss";
+
+#notification-bar {
+  position: fixed;
+  border: none;
+  bottom: 20px;
+}
+
+.notification-row {
+  background: #151515;
+  box-shadow: 2px 6px 15px 3px #AAA;
+  border-radius: 10px;
+  color: #DDD;
+  font-weight: 600;
+  margin-bottom: 10px;
+  padding: 10px 20px;
+  width: 400px;
+}
+
+@media (min-width: 769px) {
+  .notification-row {
+    width: 400px;
+  }
+}
+
+@media (max-width: 768px) {
+  .notification-row {
+    width: 90vw;
+  }
+}

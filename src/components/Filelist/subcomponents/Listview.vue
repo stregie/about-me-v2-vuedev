@@ -1,8 +1,5 @@
 <template>
-  <div id = "list-view">
-    <!-- <p>WindowWidth: {{ windowWidth }} mobileView: {{ mobileView }} ColumnOrder a: {{ columnOrder.action }} n: {{ columnOrder.name }} e: {{ columnOrder.ext }} s: {{ columnOrder.size }} d: {{columnOrder.date }}</p> -->
-
-    
+  <div id = "list-view">    
     <div id = "list-view-table">
       <template v-if = "isFolderEmpty">
         <div
@@ -12,7 +9,7 @@
         <div
           class = "grid-item grid-folder folder-name empty-folder"
           :style = "{'order': columnOrder.name + 5}">
-          This folder is empty. Empty folders are not permanent.
+          Empty folder
         </div>
         <div
           class = "grid-item grid-folder folder-ext"
@@ -117,35 +114,20 @@
 
 <script>
   import { mapState, mapActions } from 'pinia';
-  import { useFilesStore } from '../stores/use-files-store.js';
-  import { useFilesAndFoldersStore } from '../stores/use-files-and-folders-store.js';
-  import { formatSize, formatDate, highlightRow, removeHighlight } from '../utils/utils.js';
-  import FilelistMenu from './filelist-listview-menu.vue';
-  import '../assets/css/filelist-listview.scss';
+  import { useComponentDisplayStore } from '/src/stores/use-component-display-store.js';
+  import { useFilesStore } from '/src/stores/use-files-store.js';
+  import { useFilesAndFoldersStore } from '/src/stores/use-files-and-folders-store.js';
+  import { formatSize, formatDate, highlightRow, removeHighlight } from '/src/utils/utils.js';
+  import FilelistMenu from './Listview-menu.vue';
 
 	export default {
     components: {
       'Listview-Menu': FilelistMenu,
     },
-    data() {
-      return {
-        windowWidth: window.innerWidth,
-        mobileView: false,
-      }
-    },
-    mounted() {
-      window.addEventListener('resize', this.handleResize);
-      this.handleResize(); // initiate check
-    },
-    unmounted() {
-      window.removeEventListener('resize', this.handleResize);
-    },
     computed: {
+      ...mapState(useComponentDisplayStore, ['mobileView']),
       ...mapState(useFilesAndFoldersStore, ['activeFolder', 'foldersToDisplay', 'filesToDisplay']),
-      isFolderEmpty(){
-        console.log("this.foldersToDisplay", this.foldersToDisplay);
-        console.log("this.filesToDisplay", this.filesToDisplay);
-    
+      isFolderEmpty(){    
         if (!this.foldersToDisplay || !this.filesToDisplay) { 
           return true;
         } else {
@@ -178,14 +160,6 @@
     },
     methods: {
       ...mapActions(useFilesStore, ['downloadFile']),
-      handleResize(){
-        this.windowWidth = window.innerWidth;
-        if (window.innerWidth < 768) {
-          this.mobileView = true;
-        } else {
-          this.mobileView = false;
-        }
-      },
       changeFolder(folder){
         this.activeFolder.push(folder);
       },
@@ -206,9 +180,5 @@
 </script>
 
 <style lang = "scss" scoped>
-  .empty-folder {
-    text-align: center;
-    font-weight: 400;
-    font-style: italic;
-  }
+  @import "/src/assets/css/filelist-listview.scss";
 </style>

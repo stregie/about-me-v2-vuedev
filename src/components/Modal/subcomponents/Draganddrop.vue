@@ -13,7 +13,7 @@
 <script>
   // import { useUploadStore } from '../stores/stores.js';
   import { mapState, mapActions } from 'pinia';
-  import { formatSize } from '../utils/utils.js';
+  import { formatSize } from '/src/utils/utils.js';
 
 	export default {
 		data() {

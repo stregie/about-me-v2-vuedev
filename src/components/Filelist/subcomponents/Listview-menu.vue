@@ -13,21 +13,32 @@
       v-show = "dropdownDisplay">
       <ul>
         <template v-if = "entryType === 'folder'">
-          <!-- <li>Folder</li> -->
           <li>
-            <button type = "button" class = "dropdown-menu-item" @click = "renameFolder" disabled>
+            <button 
+              type = "button"
+              class = "dropdown-menu-item"
+              @click = "renameFolder"
+              disabled>
               <img :src = "renameIcon"/>
               <label>Rename</label>
             </button>
           </li>
           <li>
-            <button type = "button" class = "dropdown-menu-item" @click = "moveFolder" disabled>
+            <button
+              type = "button"
+              class = "dropdown-menu-item"
+              @click = "moveFolder"
+              disabled>
               <img :src = "moveIcon"/>
               <label>Move</label>
             </button>
           </li>
           <li>
-            <button type = "button" class = "dropdown-menu-item" @click = "deleteFolderToTrash">
+            <button
+              type = "button"
+              class = "dropdown-menu-item"
+              @click = "deleteFolderToTrash"
+              disabled>
               <img :src = "deleteIcon"/>
               <label>Delete to Trash</label>
             </button>
@@ -35,27 +46,40 @@
         </template>
 
         <template v-if = "entryType === 'file' && fileMetaData.status === 'available'">
-          <!-- <li>File available</li> -->
           <li>
-            <button type = "button" class = "dropdown-menu-item" @click = "downloadFile(fileMetaData.fileid)">
+            <button
+              type = "button"
+              class = "dropdown-menu-item"
+              @click = "downloadFile(fileMetaData.fileid)">
               <img :src = "downloadIcon"/>
               <label>Download</label>
             </button>
           </li>
           <li>
-            <button type = "button" class = "dropdown-menu-item" @click = "renameFile" disabled>
+            <button
+              type = "button"
+              class = "dropdown-menu-item"
+              @click = "renameFile"
+              disabled>
               <img :src = "renameIcon"/>
               <label>Rename</label>
             </button>
           </li>
           <li>
-            <button type = "button" class = "dropdown-menu-item" @click = "moveFile" disabled>
+            <button
+              type = "button"
+              class = "dropdown-menu-item"
+              @click = "moveFile"
+              disabled>
               <img :src = "moveIcon"/>
               <label>Move</label>
             </button>
           </li>
           <li>
-            <button type = "button" class = "dropdown-menu-item" @click = "moveFileToTrash(fileMetaData.fileid)">
+            <button
+              type = "button"
+              class = "dropdown-menu-item"
+              @click = "moveFileToTrash(fileMetaData.fileid, fileMetaData.filename)">
               <img :src = "deleteIcon"/>
               <label>Delete to Trash</label>
             </button>
@@ -63,15 +87,20 @@
         </template>
 
         <template v-if = "entryType === 'file' && fileMetaData.status === 'trash'">
-          <!-- <li>File trash</li>  -->
           <li>
-            <button type = "button" class = "dropdown-menu-item" @click = "restoreFileFromTrash(fileMetaData.fileid)">
+            <button
+              type = "button"
+              class = "dropdown-menu-item"
+              @click = "restoreFileFromTrash(fileMetaData.fileid, fileMetaData.filename, fileMetaData.path)">
               <img :src = "restoreIcon"/>
               <label>Restore</label>
             </button>
           </li>
           <li>
-            <button type = "button" class = "dropdown-menu-item" @click = "deleteFilePermanently(fileMetaData.fileid)">
+            <button
+              type = "button"
+              class = "dropdown-menu-item"
+              @click = "deleteFilePermanently(fileMetaData.fileid, fileMetaData.filename)">
               <img :src = "permanentDeleteIcon"/>
               <label>Delete permanently</label>
             </button>
@@ -83,9 +112,9 @@
 </template>
 
 <script>
-  import { useFilesStore } from '../stores/use-files-store.js';
+  import { useFilesStore } from '/src/stores/use-files-store.js';
+  import { useComponentDisplayStore } from '/src/stores/use-component-display-store.js';
   import { mapState, mapActions } from 'pinia';
-
   import moreIcon from '/src/assets/icons/more_vert_black_24dp.svg';
   import renameIcon from '/src/assets/icons/drive_file_rename_outline_black_24dp.svg';
   import moveIcon from '/src/assets/icons/drive_file_move_black_24dp.svg';
@@ -111,6 +140,7 @@
 		},
     methods: {
       ...mapActions(useFilesStore, ['downloadFile', 'moveFileToTrash', 'restoreFileFromTrash', 'deleteFilePermanently']),
+      ...mapActions(useComponentDisplayStore, ['openModal']),
       openDropdown(){
         this.dropdownDisplay = true;
       },
@@ -130,6 +160,7 @@
         console.log("delete folder to trash", this.folderName);
       },
       renameFile(){
+        this.openModal("ModalRename");
         console.log("Rename file", this.fileMetaData.filename);
       },
       moveFile(){
@@ -139,8 +170,8 @@
   }
 </script>
 
-<style scoped>
-  @import "../assets/css/main.scss";
+<style lang = "scss" scoped>
+  @import "/src/assets/css/filelist-listview.scss";
 
   .hidden {
     background: red;

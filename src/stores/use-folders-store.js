@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia';
+import { useComponentDisplayStore } from './use-component-display-store.js';
 import { useFilesStore } from './use-files-store.js';
 import { useFilesAndFoldersStore } from './use-files-and-folders-store.js';
 import { pathToString, readNode, insertNode, updateNode, createFolderTree } from '../utils/foldertree.js';
@@ -34,17 +35,22 @@ export const useFoldersStore = defineStore('folders', {
   },
   actions: {
     createTree(){ // OK
-      const fileListAll = useFilesStore().fileListAll;
+      const fileListAll = useFilesStore().fileListAvailable;
       this.folderTree = createFolderTree(fileListAll);
     },
     createNewFolder(folderName){
-      let trashActive = !useFilesAndFoldersStore().trashActive;
-      if(trashActive){
+      let trashActive = useFilesAndFoldersStore().trashActive;
+      if (folderName = ""){
+        useComponentDisplayStore().newNotification("Enter folder name before creating it.");
+        return
+      }
+      if(!trashActive){
         const activeFolder = useFilesAndFoldersStore().activeFolder;
         const nodeToInsert = {"name": folderName, "expanded": false, "children": []}
         this.folderTree = insertNode(this.folderTree, activeFolder, nodeToInsert);
+        useComponentDisplayStore().newNotification(`"${folderName}" folder created.`);
       } else {
-        console.log("Can't open new folder in trash");
+        useComponentDisplayStore().newNotification("Can't create new folder in Trash");
       }
     },
     toggleExpanded(pathArray){

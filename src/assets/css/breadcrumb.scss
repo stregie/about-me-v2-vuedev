@@ -1,0 +1,23 @@
+@import "./variables.scss";
+
+#breadcrumb {
+  margin-bottom: 20px;
+  color: $font-dark;
+  font-size: 0.8rem;      
+  
+  ol {
+    li:last-child{
+      color: Maroon;
+      font-weight: bold;
+    }
+  }
+
+  label:hover {
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  .breadcrumb-item:before {
+    font-weight: bold;
+  }
+}

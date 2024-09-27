@@ -1,51 +1,41 @@
 @import "./variables.scss";
+
 a {
   color: inherit;
   text-decoration: inherit;
 }
+
 a:hover {
   color: inherit;
 }
 
-#fileuploader-minisite{
-  // scrollbar-color: red orange;
+.button-A {
+  background: $background-3;
+  border: none;
+  border-radius: 5px;
+  color: $font-dark;
+  cursor: pointer;
+  display: block;
+  padding: 10px 20px;
+}
+
+.button-A:hover {
+  background: $background-4;
+}
+
+.button-A-color{
+  background: $background-5;
+  color: white;
+}
+
+#filemanager-minisite{
   height: calc(100vh - 80px);
   font-family: 'Open Sans', Arial, sans-serif;
   background: $background-1;
+  position: relative;
 }
-
-// Sidebar
-
 
 // main window
-#command-bar{
-  color: $font-dark;
-  margin-bottom: 10px;
-
-  button {
-    background: none;
-    border: none;
-    line-height: 30px;
-    margin-right: 5px;
-    img {
-      z-index: 0;
-      height: 24px;
-      width: 24px;
-      filter: opacity(50%);
-    }
-  }
-  button:hover {
-    background: $background-3;
-    border-radius: 8px;
-  }
-}
-#breadcrumb{
-  label:hover{
-    text-decoration: underline;
-    cursor: pointer;
-  }
-}
-
 #main-content {
   background: $background-1;
 }
@@ -62,7 +52,7 @@ button:disabled {
 
 
 @media (min-width: 769px) {
-  #fileuploader-minisite{
+  #filemanager-minisite{
     display: grid;
     grid-template-columns: 200px auto;
   }
@@ -72,7 +62,7 @@ button:disabled {
 }
 
 @media (max-width: 768px) {
-  #fileuploader-minisite{
+  #filemanager-minisite{
     position: relative;
   }
   #main-content {

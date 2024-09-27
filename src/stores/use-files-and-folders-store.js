@@ -28,7 +28,6 @@ export const useFilesAndFoldersStore = defineStore('filesAndFolders', {
       }
     },
     filesToDisplay: (state) => {
-      console.log(state.sortBy);
       let fileList = [];
       if(state.trashActive) {
         fileList = useFilesStore().fileListTrash;
@@ -41,7 +40,15 @@ export const useFilesAndFoldersStore = defineStore('filesAndFolders', {
       return fileList;
     },
     searchResults: (state) => {
-      let fileList = useFilesStore().fileListAvailable;
+      let fileList = [];
+      if(!state.searchBy) {
+        return [];
+      }
+      if(state.trashActive) {
+        fileList = useFilesStore().fileListTrash;
+      } else {
+        fileList = useFilesStore().fileListAvailable;
+      }
       fileList = filterFiles(fileList, {filename: state.searchBy, extension: ""});
       sortFiles(fileList, {column: "filename", ascending: true});
       return fileList;
@@ -67,7 +74,7 @@ export const useFilesAndFoldersStore = defineStore('filesAndFolders', {
     },
     changeSortOrder(column){
       if (column === this.sortBy.column) {
-        this.sortBy.ascending = !this.sortBy.ascending
+        this.sortBy.ascending = !this.sortBy.ascending;
       } else {
         this.sortBy.column = column;
         this.sortBy.ascending = true;
@@ -119,7 +126,6 @@ function filterFolders(folderList, filterBy) {
 };
 
 function sortFiles(fileList, sortBy) {
-  console.log(fileList);
   if (!fileList) {
     return null;
   } else {
@@ -149,12 +155,13 @@ function sortFolders(folderList, sortBy) {
   if (!folderList) {
     return null;
   } else {
-    if (sortBy.ascending) {
-      folderList.sort();          
-    } else {
+    if (sortBy.column == "filename" && sortBy.ascending) {
+      folderList.sort();
+    } else if (sortBy.column == "filename" && !sortBy.ascending) {
       folderList.sort().reverse();
+    } else {
+      folderList.sort();
     }
-
     return folderList;
   }
 };

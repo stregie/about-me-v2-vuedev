@@ -5,7 +5,7 @@ export default {
   plugins: [
     vue()
   ],
-  publicPath: '/fileuploader-vue/',
+  publicPath: '/filemanager/',
   server: {
     port: 5173,
     proxy: {

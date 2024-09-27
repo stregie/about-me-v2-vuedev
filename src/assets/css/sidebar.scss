@@ -5,7 +5,6 @@
   border-right: 1px solid $border-1;
   color: $font-light;
   display: grid;
-  grid-template-rows: calc(100vh - 140px) 60px; /* Where storage indicator is 60px, footer is 80px. */
   font-weight: 500;
   height: 100%;
   position: relative;
@@ -23,11 +22,12 @@
     opacity: 50%;
   }
 }
+
 #sidebar-menu {
   overflow:hidden;
 }
-#sidebar-folders{
-  // margin-top: 25px;
+
+#sidebar-folders{  
   height: 100%;
   overflow-y: auto;
   scrollbar-width: thin;
@@ -59,7 +59,8 @@
   color: $font-light;
   font-weight: 500;  
   img {
-    // specify width and height!
+    height: 24px;
+    width: 24px;
     filter: opacity(50%);
   }
 }
@@ -69,19 +70,32 @@
   white-space: nowrap;
 }
 
+button.sidebar-list-icon {
+  transition: transform 0.3s;
+}
+button.sidebar-list-icon.rotated {
+  transform: rotate(90deg);
+}
+.sidebar-list-icon.non-visible {
+  visibility: hidden;
+}
+.node-hide {
+  display: none;
+}
+
 #sidebar-storage{
-  // position: absolute;
-  // bottom: 40px;
   display: flex;
   flex-direction: column;
   padding: 20px;
   width: 100%;
+
   label {
     font-size: 0.8rem;
     font-weight: 400;
     margin-bottom: 0px;
   }
-  progress{
+
+  progress {
     background: $background-3;
     border: none;
     height: 3px;
@@ -89,18 +103,27 @@
     width: 100%;
   }
 }
+
 @media (min-width: 769px) {
-  #sidebar-toggler-command-bar,
+  #sidebar {
+    grid-template-rows: 145px calc(100vh - 285px) 60px; /* Where storage indicator is 60px, footer is 80px. */
+    gap: 0;
+  }
+
+  #sidebar-toggler-commandbar,
   #sidebar-toggler {
     display: none;
   }
+
   #sidebar-menu {
     padding-top: 45px;
   }
 }
+
 @media (max-width: 768px) {
   $sidebarWidth: 80%;
   #sidebar {
+    grid-template-rows: 130px calc(100vh - 270px) 60px; /* Where storage indicator is 60px, footer is 80px. */
     position: absolute;
     width: $sidebarWidth;
     visibility: visible;
@@ -108,10 +131,12 @@
     transition: left 0.3s ease-in-out, visibility 0.3s ease-in-out;
     font-size: 1.4rem;
   }
+
   #sidebar.hidden {
     left: -$sidebarWidth;
     visibility: hidden;
   }
+
   #sidebar-menu {
     padding-top: 10px;
   }

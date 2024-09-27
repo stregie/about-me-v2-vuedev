@@ -1,7 +1,76 @@
 @import "./variables.scss";
 
-.commandbar-menu{
-  font-size: 0.8rem;
+#commandbar{
+  color: $font-dark;
+  margin-bottom: 10px;
+}
+
+#commandbar-menu {
+  max-height: 160px;
+  max-width: 600px;
+  transition: max-height 0.2s linear, height 0.2s linear;
+  overflow: hidden;
+}
+
+#commandbar-menu.hidden {
+  max-height: 0px;
+}
+
+#commandbar-new-folder {
+  padding: 20px;
+  
+  form {
+    display: grid;
+    column-gap: 20px;
+    grid-template-columns: 1fr 90px;
+
+    button {
+      align-self: center;
+    }
+  }
+  
+  .commandbar-input {
+    display: block;
+    margin-bottom: 0px;
+  }  
+}
+
+#commandbar-filter {
+  margin: 10px 0px;
+}
+
+#commandbar-sort {
+  margin: 10px 0px;
+  max-width: 400px;
+
+  button {
+    color: $font-light;
+    background: none;
+    border: none;
+    border-radius: 12px;
+    padding: 5px 15px;
+    text-align: left;
+  }
+  button:hover{
+    background: $background-3;
+  }
+}
+
+.commandbar-button {
+  background: none;
+  border: none;
+  border-radius: 12px;
+  color: $font-light;  
+  
+  img {
+    z-index: 0;
+    height: 24px;
+    width: 24px;
+    filter: opacity(50%);
+  }
+}
+.commandbar-button:hover {
+  background: $background-3;
 }
 
 .commandbar-input {
@@ -18,52 +87,130 @@
   box-shadow: 0px 0px 2px 2px $border-1;
 }
 
-@media (min-width: 769px) {
+#commandbar-upload {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 
+  label {
+    background: $background-3;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 8px;
+  }
+
+  label:hover {
+    background: $background-4;
+  }
+
+  input {
+    display: none;
+  }
+
+  #upload-form {
+    display: block;
+  }
+}
+
+.progress-bar {
+  display: block;
+  border: 3px solid $border-1;
+  height: 20px;
+  border-radius: 5px;
+}
+
+@keyframes processing {
+  0% { background-position: 90% 0%}
+  100% { background-position: 0% 0%}
+}
+
+.progress-bar.processing {
+  background-size: 200% 110%;
+}
+
+
+@media (min-width: 769px) {
+  #commandbar-filter {
+    display: grid;
+    column-gap: 20px;
+    grid-template-columns: 1fr 1fr;
+    max-width: 470px;
+  }
+
+  #commandbar-sort {
+    display: block;
+    
+    button {
+      margin-right: 0px;
+    }
+  }
+
+  #commandbar-buttons {
+    display: flex;
+    gap: 2px;
+  }
+  .commandbar-button {
+    line-height: 30px;
+    padding: 5px 10px;
+    
+    img {
+      vertical-align: text-bottom;
+    }
+  }
+
+  .progress-bar {
+    width: 250px;
+  }
+
+  .progress-bar.processing {
+    background-image: repeating-linear-gradient(130deg, $background-4 3%, $background-2 8%, $background-4 12%);
+    animation: processing 5s linear infinite;
+  }
 }
 
 
 @media (max-width: 768px) {
+  #commandbar-filter {
+    display: block;
+  }
 
+  #commandbar-sort {
+    width: 250px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    button {
+      display: block;
+      font-size: 0.8rem;
+      padding: 4px 20px;
+      width: 120px;
+    }
+  }
+
+  .commandbar-button {
+    font-size: 0.6rem;
+    text-align: center;
+    line-height: 13px;
+    align-self: start;
+
+    img {
+      display: block;
+      margin: auto;
+    }
+  }
+
+  #commandbar-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  }
+
+  .progress-bar {
+    width: 140px;
+  }
+
+  .progress-bar.processing {
+    background-image: repeating-linear-gradient(130deg, $background-4 6%, $background-2 14%, $background-4 20%);
+    animation: processing 5s linear infinite;
+  }
 }
-
-
-
-// .commandbar-filter-menu {
-//     display: inline-block;
-//     padding: 20px;
-//     z-index: 5000;
-//     background: $background-1;
-//     border: 1px solid $border-1;
-//     border-radius: 10px;
-//     box-shadow: 0px 0px 7px 2px $border-1;
-//     opacity: 1;
-//     position: absolute;
-
-//     // column-gap: 20px;
-//     form {
-// /*      margin: 20px;*/
-//     }
-//     label {
-//       display: block;
-//     }
-//     input {
-//       display: block;
-//       width: 100%;
-//     }
-//   }
-
-//   @media (min-width: 769px) {
-//     .commandbar-filter-menu {
-//       // grid-template-columns: 1fr 1fr 1fr;
-//       // max-width: 100%;
-//     }
-//   }
-
-//   @media (max-width: 768px) {
-//     .commandbar-filter-menu {
-//       // grid-template-columns: auto;
-//       // width: 100%;
-// /*      margin: 20px;*/
-//     }
-//   }

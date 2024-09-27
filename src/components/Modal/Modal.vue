@@ -1,6 +1,6 @@
 <template>
   <div
-    id = "modal"
+    class = "modal-container"
     v-if = "modalVisible" 
     @click = "closeModal"
     >
@@ -10,16 +10,18 @@
 
 <script>
   import { mapState, mapActions } from 'pinia';
-  import { useComponentDisplayStore } from '../stores/use-component-display-store.js';
-  import ModalDraganddrop from './modal-draganddrop.vue';
-  import ModalMove from './modal-move.vue';
-  import ModalSearch from './modal-search.vue';
+  import { useComponentDisplayStore } from '/src/stores/use-component-display-store.js';
+  import ModalDraganddrop from './subcomponents/Draganddrop.vue';
+  import ModalMove from './subcomponents/Move.vue';
+  import ModalRename from './subcomponents/Rename.vue';
+  import ModalSearch from './subcomponents/Search.vue';
  
 
 	export default {
     components: {
       'ModalDraganddrop': ModalDraganddrop,
       'ModalMove': ModalMove,
+      'ModalRename': ModalRename,
       'ModalSearch': ModalSearch,
     },
     computed: {
@@ -35,18 +37,5 @@
 </script>
 
 <style lang = "scss" scoped>
-  @import "../assets/css/variables.scss";
-
-  #modal {
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    height: 100%;
-    width: 100%;
-    background: #00000088;
-    z-index: 95;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+  @import "/src/assets/css/modal.scss";
 </style>

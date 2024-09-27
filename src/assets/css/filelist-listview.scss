@@ -26,26 +26,38 @@
   padding-bottom: 140px;
   scrollbar-width: thin;
 }
+
 .grid-folder {
   cursor: pointer;
 }
+
 .file-name {
   cursor: pointer;
 }
+
 .file-name:hover {
   text-decoration: underline;
 }
+
 .folder-name {
   font-size: 1.0rem;
   font-weight: bold;
 }
+
 .folder-name, .file-name {
   overflow-x: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
 .highlight {
   background: $background-2;
+}
+
+.empty-folder {
+  text-align: center;
+  font-weight: 400;
+  font-style: italic;
 }
 
 // borders
@@ -57,10 +69,10 @@
   #list-view-table {
     grid-template-columns: 40px 1fr 60px 60px 100px;
   }
+
   .grid-item {
     line-height: 60px;
   }
-
 
   // borders
   .grid-item {
@@ -92,27 +104,34 @@
     line-height: 60px;
     text-align: center;
   }
+
   .folder-name {
     grid-column-end: span 2;
     grid-row-end: span 2;
     line-height: 60px;
   }
+
   .file-name {
     grid-column-end: span 2;
   }
+
   .folder-size {
     display: none;
   }
+
   .folder-date {
     display: none;
   }
+
   .folder-ext, .file-ext {
     display: none;
   }
+
   .folder-size, .file-size {
     font-size: 0.7rem;
     text-align: right;
   }
+
   .folder-date, .file-date {
     font-size: 0.7rem;
   }
@@ -125,12 +144,15 @@
   .folder-action, .folder-name, .file-action, .file-size, .file-date {
     border-bottom: 1px solid $border-1;
   }
+
   .folder-name, .folder-size, .file-name, .file-size {
     border-right: 1px solid $border-1;
   }
+
   .grid-item:nth-last-of-type(2){ // last size
     border-radius: 0 0 15px 0;
   }
+
   .grid-item:nth-last-of-type(5){ // last action
     border-radius: 0 0 0 15px;
   } 
@@ -153,7 +175,6 @@
   top: 50px;
   left: 10px;
   z-index: 70;
-  // padding: 10px 0px;
   text-align: left;
   width: 220px;
   overflow: hidden;
@@ -186,149 +207,3 @@
 .filelist-menu-dropdown.hidden{
   display: none;
 }
-
-
-
-// #list-view-table{
-//   width: 700px;
-// }
-
-// .grid-row {
-//   border-width: 0px 1px 1px 1px;
-//   border-style: solid;
-//   border-color: $border-1;
-//   display: grid;
-//   position: relative;
-//   transition: background 0.1s;
-// }
-
-// .grid-row:first-of-type {
-//   border-width: 1px 1px 1px 1px;
-//   border-radius: 15px 15px 0px 0px;
-// }
-
-// .grid-row:last-of-type {
-//   border-radius: 0px 0px 15px 15px;
-// }
-
-// // .grid-item {
-// //   overflow-x: hidden;
-// //   text-overflow: ellipsis;
-// //   white-space: nowrap;
-// // }
-
-// .ext-column, .size-column, .date-column{
-//   text-align: right;
-// }
-
-// .table-head {
-//   overflow: hidden;
-//   border-radius: 15px 15px 0px 0px;
-//   background-image: linear-gradient($background-2, $background-3);
-//   display: none; 
-// }
-
-// .table-body {
-
-//   .folder-row {
-//     .name-column {
-//       button {
-//         font-weight: bold;
-//         padding: 0;
-//       }
-//     }
-//   }
-
-//   .file-row {
-//     .name-column {
-//       button {
-//         max-width: 100%;
-//         padding: 0;
-//         overflow-x: hidden;
-//         text-overflow: ellipsis;
-//         white-space: nowrap;
-//       }
-//     }
-//   }
-// }
-
-// @media (min-width: 769px) {
-//   .grid-row {
-//     max-width: 100%;
-//     grid-template-columns: 40px 1fr 100px 100px 110px;
-//   }
-//   .grid-item {
-//     padding: 10px;
-//   }
-//   .dropdown-toggler {
-//     visibility: hidden;
-//   }
-//   .grid-row:hover{
-//     background: $background-2;
-    
-//     .dropdown-toggler {
-//       visibility: visible;
-//     }
-
-//     .name-column {
-//       button{
-//         text-decoration: underline;
-//       }
-//     }
-//   }
-//  }
-
-// @media (max-width: 768px) {
-//   .grid-row {
-//     grid-template-columns: 40px 1fr 80px;
-//   }
-//   .folder-row {
-//     .action-column {
-//       grid-area: 1 / 1 / span 2 / span 1;
-//     }
-//     .name-column {
-//       grid-area: 1 / 2 / span 1 / span 2;
-//       line-height: 60px;
-//     }
-//     .ext-column {
-//       display: none;
-//     }
-//     .size-column {
-//       display: none;
-//     }
-//     .date-column {
-//       display: none;
-//     }
-//     .size-column, .date-column {
-//       font-size: 0.7rem;
-//     }
-//   }
-//   .file-row {
-//     .action-column {
-//       grid-area: 1 / 1 / span 2 / span 1;
-//     }
-//     .name-column {
-//       line-height: 40px;
-//       grid-area: 1 / 2 / span 1 / span 2;
-//     }
-//     .ext-column {
-//       display: none;
-//     }
-//     .size-column {
-//       grid-area: 2 / 3 / span 1 / span 1;
-//       padding-right: 10px;
-//     }
-//     .date-column {
-//       grid-area: 2 / 2 / span 1 / span 1;
-//       text-align: left;
-//     }
-//     .size-column, .date-column {
-//       line-height: 20px;
-//       font-size: 0.7rem;
-//     }
-//   }
-//   .filelist-menu {
-//     line-height: 60px;
-//   }
-
-// }

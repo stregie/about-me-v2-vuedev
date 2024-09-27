@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia';
+import { useComponentDisplayStore } from './use-component-display-store.js';
 import { useFoldersStore } from './use-folders-store.js';
 import { useFilesAndFoldersStore } from './use-files-and-folders-store.js';
 import { pathToString, readNode, updateNode, createFolderTree } from '../utils/foldertree.js';
@@ -52,41 +53,45 @@ export const useFilesStore = defineStore('files', {
     },
     async downloadFile(fileid){
       console.log("downloadFile", fileid);
+      useComponentDisplayStore().newNotification(`File download started.`);
       window.location.href = `/vueapi/file?id=${fileid}`;
     },
-    async moveFileToTrash(fileid){
+    async moveFileToTrash(fileid, filename){
       try {
         const response = await fetch(`/vueapi/move-to-trash?id=${fileid}`, {
           method: "POST"
         });
         const serverResponse = await response.text();
         console.log(serverResponse);
+        useComponentDisplayStore().newNotification(`File '${filename}' moved to Trash.`);
       } catch (error) {
         console.error(error.message);
       } finally {
         this.fetchFileListAll();
       }
     },
-    async restoreFileFromTrash(fileid){
+    async restoreFileFromTrash(fileid, filename, filepath){
       try {
         const response = await fetch(`/vueapi/restore-from-trash?id=${fileid}`, {
           method: "POST"
         });
         const serverResponse = await response.text();
         console.log(serverResponse);
+        useComponentDisplayStore().newNotification(`File '${filename}' restored to ${filepath}.`);
       } catch (error) {
         console.error(error.message);
       } finally {
         this.fetchFileListAll();
       }
     },
-    async deleteFilePermanently(fileid){
+    async deleteFilePermanently(fileid, filename){
       try {
         const response = await fetch(`/vueapi/file?id=${fileid}`, {
           method: "DELETE"
         });
         const serverResponse = await response.text();
         console.log(serverResponse);
+        useComponentDisplayStore().newNotification(`File '${filename}' deleted permanently.`);
       } catch (error) {
         console.error(error.message);
       } finally {

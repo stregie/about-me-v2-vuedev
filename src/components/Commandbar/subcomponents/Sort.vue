@@ -33,7 +33,7 @@
 
 <script>
   import { mapState, mapActions } from 'pinia';
-  import { useFilesAndFoldersStore } from '../stores/use-files-and-folders-store.js';
+  import { useFilesAndFoldersStore } from '/src/stores/use-files-and-folders-store.js';
 
 	export default {
     computed: {
@@ -46,35 +46,5 @@
 </script>
 
 <style lang = "scss" scoped>
-  @import "../assets/css/commandbar.scss";
-
-  #commandbar-sort {
-    margin: 10px 0px;
-  }
-
-  @media (min-width: 769px) {
-    #commandbar-sort {
-      column-gap: 1px;
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr 1fr;
-      
-      button {
-        margin-right: 0px;
-      }
-    }
-  }
-
-
-  @media (max-width: 768px) {
-    #commandbar-sort {
-      display: block;
-
-      button {
-        display: block;
-        padding: 4px 20px;
-        text-align: left;
-        width: 100%;
-      }
-    }
-  }
+  @import "/src/assets/css/commandbar.scss";
 </style>

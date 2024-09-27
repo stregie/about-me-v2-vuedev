@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia';
+import { useComponentDisplayStore } from './use-component-display-store.js';
 import { useFilesStore } from './use-files-store.js';
 import { useFilesAndFoldersStore } from './use-files-and-folders-store.js';
 import { pathToString  } from '../utils/foldertree.js';
@@ -8,8 +9,8 @@ export const useUploadStore = defineStore('uploadedFiles', {
   state: () => ({
     fileInput: null,
     formData: null,
-    existingFiles: null,
-    uploadResponse: null,
+    nonExistingFiles: null,
+    processing: false,
   }),
   getters: {
     fileInputTotalSize(){
@@ -31,28 +32,24 @@ export const useUploadStore = defineStore('uploadedFiles', {
 
       try {
         if (this.fileInputTotalSize > 4718592){
-          this.uploadResponse = "Maximum 4,5 MB can be uploaded at once.";
+          useComponentDisplayStore().newNotification("Size limit exceeded: Maximum 4,5 MB can be uploaded at once.");
           return
         }
 
         await this.findExistingFiles();
         this.createFormData();
         if (Array.from(this.formData.entries()).length <= 1) {
-          this.uploadResponse = "All selected files exist and won't be uploaded.";
           return
         }
-
         await this.uploadFiles();
       } catch (error) {
         console.error(error);
-        this.uploadResponse = "An error has occured";
+        useComponentDisplayStore().newNotification("An error has occured during upload.");
       } finally {
         useFilesStore().fetchFileListAll();
         this.fileInput = null;
         this.formData = null;
-        setTimeout(() => {
-          this.uploadResponse = null
-        }, 5000);
+        this.nonExistingFiles = null;
       }
     },
     async findExistingFiles(){
@@ -73,20 +70,23 @@ export const useUploadStore = defineStore('uploadedFiles', {
         });
 
         const serverResponse = await response.json();
-        this.existingFiles = serverResponse.existingFiles;
-        if (this.existingFiles.length < 0) {
-          this.uploadResponse = "Some of the selected files exist already and won't be uploaded.";
+        console.log("findExistingFiles server response: ", serverResponse);
+        if (serverResponse.nonExistingFiles.length === 0) {
+          useComponentDisplayStore().newNotification("All selected files exist already and won't be uploaded.");
+        } else if (serverResponse.existingFiles.length > 0) {
+          useComponentDisplayStore().newNotification("Some of the selected files exist already and won't be uploaded.");
         }
+        this.nonExistingFiles = serverResponse.nonExistingFiles;
       } catch(error) {
         console.log(error);
-      } 
+      }
     },
     createFormData(){
       let formData = new FormData();
       formData.append('path', this.path);
       if(this.fileInput){
         for (let i = 0; i < this.fileInput.length; i++) {
-          if(!this.existingFiles.includes(this.fileInput[i].name)){
+          if(this.nonExistingFiles.includes(this.fileInput[i].name)){
             formData.append('file', this.fileInput[i]);          
           }
         }
@@ -95,18 +95,20 @@ export const useUploadStore = defineStore('uploadedFiles', {
     },
     async uploadFiles(){
       try {
+        this.processing = true;
+        useComponentDisplayStore().newNotification("File upload started");
         const response = await fetch('/vueapi/upload/', {
           method: "PUT",
           body: this.formData
         });
         const result = await response.json();
-
-        
-        this.uploadResponse = "Files uploaded successfully";
+        useComponentDisplayStore().newNotification("Files uploaded successfully");
       } catch (error) {
         console.error(error);          
-        this.uploadResponse = "An error has occured";
-      }  
+        useComponentDisplayStore().newNotification("An error has occured");
+      }  finally {
+        this.processing = false;
+      }
     }
 //     async uploadFiles(){    
 //       // XMLHttpRequest is used to track upload progress
