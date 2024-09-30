@@ -59,8 +59,7 @@
             <button
               type = "button"
               class = "dropdown-menu-item"
-              @click = "renameFile"
-              disabled>
+              @click = "openRenameFileModal(fileMetaData.fileid, fileMetaData.filename, fileMetaData.extension)">
               <img :src = "renameIcon"/>
               <label>Rename</label>
             </button>
@@ -139,7 +138,7 @@
 			}
 		},
     methods: {
-      ...mapActions(useFilesStore, ['downloadFile', 'moveFileToTrash', 'restoreFileFromTrash', 'deleteFilePermanently']),
+      ...mapActions(useFilesStore, ['downloadFile', 'moveFileToTrash', 'restoreFileFromTrash', 'deleteFilePermanently', 'openRenameFileModal']),
       ...mapActions(useComponentDisplayStore, ['openModal']),
       openDropdown(){
         this.dropdownDisplay = true;
@@ -159,10 +158,11 @@
       deleteFolderToTrash(){
         console.log("delete folder to trash", this.folderName);
       },
-      renameFile(){
-        this.openModal("ModalRename");
-        console.log("Rename file", this.fileMetaData.filename);
-      },
+//       openRenameFile(){
+//         this.openModal("ModalRename");
+// 
+//         console.log("Rename file", this.fileMetaData.filename);
+//       },
       moveFile(){
         console.log("Move file", this.fileMetaData.filename);
       },

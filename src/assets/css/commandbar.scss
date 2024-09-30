@@ -8,12 +8,7 @@
 #commandbar-menu {
   max-height: 160px;
   max-width: 600px;
-  transition: max-height 0.2s linear, height 0.2s linear;
   overflow: hidden;
-}
-
-#commandbar-menu.hidden {
-  max-height: 0px;
 }
 
 #commandbar-new-folder {
@@ -150,6 +145,7 @@
     display: flex;
     gap: 2px;
   }
+
   .commandbar-button {
     line-height: 30px;
     padding: 5px 10px;
@@ -173,6 +169,10 @@
 @media (max-width: 768px) {
   #commandbar-filter {
     display: block;
+    .commandbar-input {
+      // margin-bottom: 5px;
+      font-size: 0.8rem;
+    }
   }
 
   #commandbar-sort {
@@ -188,6 +188,11 @@
     }
   }
 
+  #commandbar-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  }
+
   .commandbar-button {
     font-size: 0.6rem;
     text-align: center;
@@ -200,11 +205,6 @@
     }
   }
 
-  #commandbar-buttons {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
-  }
-
   .progress-bar {
     width: 140px;
   }
@@ -213,4 +213,14 @@
     background-image: repeating-linear-gradient(130deg, $background-4 6%, $background-2 14%, $background-4 20%);
     animation: processing 5s linear infinite;
   }
+}
+@media (min-width: 767px) and (max-width: 900px) {
+  .commandbar-button {
+    font-size: 0.8rem;
+
+    img {
+      height: 20px;
+      width: 20px;
+    }
+  }  
 }

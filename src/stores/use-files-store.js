@@ -3,30 +3,36 @@ import { useComponentDisplayStore } from './use-component-display-store.js';
 import { useFoldersStore } from './use-folders-store.js';
 import { useFilesAndFoldersStore } from './use-files-and-folders-store.js';
 import { pathToString, readNode, updateNode, createFolderTree } from '../utils/foldertree.js';
+import { removeExtension } from '../utils/utils.js';
 
 
 export const useFilesStore = defineStore('files', {
   state: () => ({
-    fileListAll: null, // OK
+    fileListAll: null,
+    renameFileTo: {
+      fileId: "",
+      newFileName: "",
+      newExtension: ""
+    },
     loading: false,
     error: null
   }),
   getters: {
-    fileListAvailable: (state) => { // OK (state.fileListAll-lal működik, this.fileListAll-lal nem.)
+    fileListAvailable: (state) => {
       if(!state.fileListAll) {
         return null;
       } else {
         return state.fileListAll.filter(file => file.status === "available");
       }
     },
-    fileListInActiveFolder: (state) => { // OK
+    fileListInActiveFolder: (state) => {
       if(!state.fileListAvailable){
         return null;
       } else {
         return state.fileListAvailable.filter(file => file.path === pathToString(useFilesAndFoldersStore().activeFolder));
       }
     },
-    fileListTrash: (state) => { // OK
+    fileListTrash: (state) => {
       if (!state.fileListAll) {
         return null;
       } else {
@@ -35,7 +41,7 @@ export const useFilesStore = defineStore('files', {
     },
   },
   actions: {
-    async fetchFileListAll(){ // OK
+    async fetchFileListAll(){
       this.loading = true;
       try {
         const fileListResponse = await fetch(`/vueapi/filelist/`);
@@ -92,6 +98,35 @@ export const useFilesStore = defineStore('files', {
         const serverResponse = await response.text();
         console.log(serverResponse);
         useComponentDisplayStore().newNotification(`File '${filename}' deleted permanently.`);
+      } catch (error) {
+        console.error(error.message);
+      } finally {
+        this.fetchFileListAll();
+      }
+    },
+    openRenameFileModal(fileid, filename, extension){
+      this.renameFileTo.fileId = fileid;
+      this.renameFileTo.newFileName = removeExtension(filename);
+      this.renameFileTo.newExtension = extension;
+      useComponentDisplayStore().openModal("ModalRename");
+      console.log(this.renameFileTo);
+    },
+    async renameFile(state){
+      try {
+        const response = await fetch(`/vueapi/rename-file?id=${this.renameFileTo.fileId}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            newFileName: this.renameFileTo.newFileName,
+            newExtension: this.renameFileTo.newExtension
+          })
+        });
+        const serverResponse = await response.text();
+        console.log(serverResponse);
+        useComponentDisplayStore().closeModal();
+        useComponentDisplayStore().newNotification(`File renamed to '${this.renameFileTo.newFileName}.${this.renameFileTo.newExtension}'.`);
       } catch (error) {
         console.error(error.message);
       } finally {

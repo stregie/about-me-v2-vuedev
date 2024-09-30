@@ -4,7 +4,9 @@
     v-if = "modalVisible" 
     @click = "closeModal"
     >
-    <component :is = "activeModalComponent" @click = "preventCloseInsideModal"/>
+    <component
+      :is = "activeModalComponent"
+      @click = "preventCloseInsideModal"/>
   </div>
 </template>
 

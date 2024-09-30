@@ -1,0 +1,61 @@
+// @import "./variables.scss";
+#filemanager-minisite{
+  display: grid;
+  height: calc(100vh - 80px);
+  overflow: hidden;
+}
+
+#sidebar {
+  display: grid;
+}
+
+#main-content {
+  display: grid;
+  grid-template-rows: 50px 0 20px 1fr;
+  transition: grid-template-rows 0.3s;
+  overflow: hidden;
+  position: relative;
+}
+
+#main-content.commandbar-menu-open{
+  grid-template-rows: 50px 85px 20px 1fr;
+  overflow: hidden;
+}
+
+#file-list {
+  overflow-y: auto;
+}
+
+#notification-bar {
+  position: absolute;
+  bottom: 20px;
+}
+
+@media (min-width: 769px) {
+  #filemanager-minisite{
+    grid-template-columns: 200px 1fr;
+  }
+  #sidebar {
+    grid-template-rows: 145px 1fr 60px;
+    gap: 0;
+  }
+  #sidebar-menu {
+    padding-top: 45px;
+  }
+  #main-content {
+    padding: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  #filemanager-minisite{
+    grid-template-columns: 0px 1fr; 
+    position: relative;
+  }
+  #sidebar {
+    grid-template-rows: 130px 1fr 60px;
+  }
+  #main-content {
+    padding: 10px;
+  }
+}

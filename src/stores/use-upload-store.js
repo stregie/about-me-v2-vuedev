@@ -70,7 +70,6 @@ export const useUploadStore = defineStore('uploadedFiles', {
         });
 
         const serverResponse = await response.json();
-        console.log("findExistingFiles server response: ", serverResponse);
         if (serverResponse.nonExistingFiles.length === 0) {
           useComponentDisplayStore().newNotification("All selected files exist already and won't be uploaded.");
         } else if (serverResponse.existingFiles.length > 0) {

@@ -80,6 +80,16 @@
 			<p>Server response {{ ex09data }}</p>
 		</div>
 
+		<div>
+			<h2><b>Example 10:</b> Rename</h2>
+			<button @click = "ex10rename('note', 'txt')">note.txt</button>
+			<button @click = "ex10rename('description', 'txt')">description.txt</button>
+			<p>Server response {{ ex10data }}</p>
+		</div>
+
+
+
+
 
 
 		<!-- <div>
@@ -111,7 +121,8 @@
 				ex08fileid: "",
 				ex08data: "",
 				ex09fileid: "",
-				ex09data: ""
+				ex09data: "",
+				ex10data: ""
 			}
 		},
     methods: {
@@ -181,6 +192,22 @@
 					method: "POST",
 				});
 				this.ex09data = await response.text();
+			},
+			async ex10rename(fileName){
+				let ex10fileid = "a756c08c-012c-4704-a4c0-0e2382ed2990";
+				let newExtension = "txt";
+				console.log(fileName);
+				const response = await fetch(`/vueapi/rename-file?id=${ex10fileid}`, {
+					method: "POST",
+					headers: {
+            "Content-Type": "application/json",
+          },
+					body: JSON.stringify({
+						newFileName: fileName,
+						newExtension: newExtension
+					})
+				});
+				this.ex10data = await response.text();
 			}
 // 			ex09onChange(event){
 // 				this.ex09fileInput = [...event.target.files];

@@ -55,13 +55,12 @@
         Detailed View
       </button>
     </div>
-    <div
-      id = "commandbar-menu"
-      :class = "{ hidden: isCommandbarMenuHidden }">
-      <KeepAlive>
-        <component :is = "activeCommandbarMenu"></component>
-      </KeepAlive>
-    </div>
+  </div>
+
+  <div id = "commandbar-menu">
+    <KeepAlive>
+      <component :is = "activeCommandbarMenu"></component>
+    </KeepAlive>
   </div>
 </template>
 
@@ -81,7 +80,7 @@
   import sortIcon from '/src/assets/icons/sort_by_alpha_black_24dp.svg';
   import listViewIcon from '/src/assets/icons/view_list_black_24dp.svg';
   import detailedViewIcon from '/src/assets/icons/grid_view_black_24dp.svg';
-    import '/src/assets/css/commandbar.scss';
+  import '/src/assets/css/commandbar.scss';
 
 	export default {
     components: {
@@ -93,7 +92,6 @@
 		data() {
 			return {
         activeCommandbarMenu: "upload-bar",
-        isCommandbarMenuHidden: true,
         menuIcon: menuIcon,
         newFolderIcon: newFolderIcon,
         uploadIcon: uploadIcon,
@@ -104,15 +102,17 @@
 			}
 		},
     computed: {
-      ...mapState(useComponentDisplayStore, ['fileListView']),
+      ...mapState(useComponentDisplayStore, ['fileListView', 'commandbarMenuVisibility']),
     },
     methods: {
-      ...mapActions(useComponentDisplayStore, ['changeFileListView', 'toggleSidebarVisibility']),
+      ...mapActions(useComponentDisplayStore, ['changeFileListView', 'toggleSidebarVisibility', 'openCommandbarMenu', 'toggleCommandbarMenuVisibility']),
       selectCommandBarMenu(menuType) {
         if (menuType === this.activeCommandbarMenu) {
-          this.isCommandbarMenuHidden = !this.isCommandbarMenuHidden;
+          // this.isCommandbarMenuHidden = !this.isCommandbarMenuHidden;
+          this.toggleCommandbarMenuVisibility();
         } else {
-          this.isCommandbarMenuHidden = false;
+          // this.isCommandbarMenuHidden = false;
+          this.openCommandbarMenu();
           this.activeCommandbarMenu = menuType;
         }
       }

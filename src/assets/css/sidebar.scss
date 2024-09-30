@@ -4,7 +4,6 @@
   background: $background-2;
   border-right: 1px solid $border-1;
   color: $font-light;
-  display: grid;
   font-weight: 500;
   height: 100%;
   position: relative;
@@ -105,25 +104,15 @@ button.sidebar-list-icon.rotated {
 }
 
 @media (min-width: 769px) {
-  #sidebar {
-    grid-template-rows: 145px calc(100vh - 285px) 60px; /* Where storage indicator is 60px, footer is 80px. */
-    gap: 0;
-  }
-
   #sidebar-toggler-commandbar,
   #sidebar-toggler {
     display: none;
-  }
-
-  #sidebar-menu {
-    padding-top: 45px;
   }
 }
 
 @media (max-width: 768px) {
   $sidebarWidth: 80%;
   #sidebar {
-    grid-template-rows: 130px calc(100vh - 270px) 60px; /* Where storage indicator is 60px, footer is 80px. */
     position: absolute;
     width: $sidebarWidth;
     visibility: visible;

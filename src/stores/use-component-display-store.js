@@ -2,16 +2,14 @@ import { defineStore } from 'pinia';
 
 export const useComponentDisplayStore = defineStore('componentDisplay', {
   state: () => ({
-  	fileListView: "ListView", // DetailedView
+  	fileListView: "ListView", // or DetailedView
+    commandbarMenuVisible: false,
   	activeModalComponent: "ModalRename", // null
-  	modalVisible: true,
+  	modalVisible: false,
   	sidebarVisible: false,
     mobileView: false,
     notifications: [],
   }),
-  getters: {
-
-  },
   actions: {
     changeActiveModal(component){
       this.activeModalComponent = component;
@@ -22,6 +20,12 @@ export const useComponentDisplayStore = defineStore('componentDisplay', {
     },
     closeModal(){
       this.modalVisible = false;
+    },
+    openCommandbarMenu(){
+      this.commandbarMenuVisible = true;
+    },
+    toggleCommandbarMenuVisibility(){
+      this.commandbarMenuVisible = !this.commandbarMenuVisible;
     },
   	toggleModalVisibility(){
   	  this.modalVisible = !this.modalVisible;
@@ -45,7 +49,7 @@ export const useComponentDisplayStore = defineStore('componentDisplay', {
       this.notifications.shift();
     },
     detectMobileView(){
-      if (window.innerWidth < 768) {
+      if (window.innerWidth <= 768) {
         this.mobileView = true;
       } else {
         this.mobileView = false;

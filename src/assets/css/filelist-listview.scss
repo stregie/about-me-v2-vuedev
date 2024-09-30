@@ -1,5 +1,8 @@
 @import "./variables.scss";
 
+#file-list{
+  scrollbar-width: thin;
+}
 #list-view{
   button {
     background: none;
@@ -21,10 +24,8 @@
   border-radius: 15px;
   transition: background 0.1s;
   font-size: 0.9rem;
-  max-height: calc(100vh - 240px);
-  overflow-y: auto;
   padding-bottom: 140px;
-  scrollbar-width: thin;
+  overflow: hidden;
 }
 
 .grid-folder {

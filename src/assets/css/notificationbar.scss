@@ -1,13 +1,13 @@
 @import "./variables.scss";
 
 #notification-bar {
-  position: fixed;
+  background: none;
   border: none;
-  bottom: 20px;
+  z-index: 92;
 }
 
 .notification-row {
-  background: #151515;
+  background: #151515AA;
   box-shadow: 2px 6px 15px 3px #AAA;
   border-radius: 10px;
   color: #DDD;

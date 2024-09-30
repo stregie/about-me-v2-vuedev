@@ -2,6 +2,7 @@ import { createApp } from 'vue';
 import { createPinia } from 'pinia';
 import { createRouter, createWebHistory } from 'vue-router';
 import './assets/css/main.scss';
+import './assets/css/layout.scss';
 
 import App from './App.vue';
 import Main from './Main.vue';

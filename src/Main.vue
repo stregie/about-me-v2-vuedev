@@ -2,7 +2,7 @@
 	<div class = "minisite-info-dummy">
 		Filemanager.
 		<router-link to = "/filemanager/filemanager-test/">Test</router-link>
-	  mobileView: {{ mobileView }}
+	  mobileView: {{ mobileView }};
 	</div>
 
 	<div id = "filemanager-minisite">
@@ -10,7 +10,7 @@
 			<Sidebar />
 		</div>
 
-		<div id = "main-content" :class = "{ blurred: modalVisible }">
+		<div id = "main-content" :class = "{ blurred: modalVisible, 'commandbar-menu-open': commandbarMenuVisible }">
 			<Commandbar />
 			<Breadcrumb />
 			<Filelist />
@@ -33,11 +33,6 @@
   import Filelist from '/src/components/Filelist/Filelist.vue';
   import Modal from '/src/components/Modal/Modal.vue';
   import NotificationBar from '/src/components/Notificationbar/Notificationbar.vue';
-  // import '/src/assets/css/main.scss';
-  // import '/src/assets/css/commandbar.scss';
-  
-
-
 
 	export default {
 		components: {
@@ -64,7 +59,7 @@
       window.removeEventListener('resize', this.detectMobileView);
     },
 		computed: {
-			...mapState(useComponentDisplayStore, ['modalVisible', 'mobileView']),
+			...mapState(useComponentDisplayStore, ['modalVisible', 'commandbarMenuVisible', 'mobileView']),
 		},
 		methods: {
 			...mapActions(useFilesStore, ['fetchFileListAll']),

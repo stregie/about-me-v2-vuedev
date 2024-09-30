@@ -29,7 +29,6 @@ a:hover {
 }
 
 #filemanager-minisite{
-  height: calc(100vh - 80px);
   font-family: 'Open Sans', Arial, sans-serif;
   background: $background-1;
   position: relative;
@@ -52,20 +51,11 @@ button:disabled {
 
 
 @media (min-width: 769px) {
-  #filemanager-minisite{
-    display: grid;
-    grid-template-columns: 200px auto;
-  }
-  #main-content {
-    padding: 40px;
-  }
+
+  
 }
 
 @media (max-width: 768px) {
-  #filemanager-minisite{
-    position: relative;
-  }
-  #main-content {
-    padding: 10px;
-  }
+
+
 }

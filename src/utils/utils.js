@@ -28,21 +28,24 @@ export const formatDate = (date) => {
     let DD = date.getDate();
     if (DD < 10){DD = "0" + DD};
 
-//     let hh = date.getHours();
-//     if (hh < 10){hh = "0" + hh};
-// 
-//     let mm = date.getMinutes();
-//     if (mm < 10){mm = "0" + mm};
-// 
-//     let ss = date.getSeconds();
-//     if (ss < 10){ss = "0" + ss};
-
     return YYYY + "-" + MM + "-" + DD;    
-    // return YYYY + "-" + MM + "-" + DD + ", " + hh + ":" + mm + ":" + ss;    
   } else {
     return "Date";
   }
 };
+
+export const removeExtension = (filename) => {
+  let nameparts = filename.split('.');
+  if (nameparts.length <= 1) {
+    return filename;
+  } else {
+    return nameparts.toSpliced(-1, 1).join('.');
+  }
+
+  // return filename.split('.').toSpliced(-1, 1);
+  // return filename.split('.').splice(-1, -1).join('.');
+  // return "kaki";
+}
 
 export const highlightRow = (element) => {
   if (element.className.includes("folder-action") || element.className.includes("file-action")){
