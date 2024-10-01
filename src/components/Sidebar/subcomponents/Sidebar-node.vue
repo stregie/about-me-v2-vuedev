@@ -26,6 +26,7 @@
 
 <script>
   import { mapActions } from 'pinia';
+  import { useComponentDisplayStore } from '/src/stores/use-component-display-store.js';
   import { useFoldersStore } from '/src/stores/use-folders-store.js';
   import { useFilesAndFoldersStore } from '/src/stores/use-files-and-folders-store.js';
   import expandIcon from '/src/assets/icons/navigate_next_black_24dp.svg';
@@ -44,6 +45,7 @@
       }
     },
     methods: {
+      ...mapActions(useComponentDisplayStore, ['closeSidebar']),
       ...mapActions(useFoldersStore, ['toggleExpanded']),
       ...mapActions(useFilesAndFoldersStore, ['changeActiveFolder']),
       parentsOfNode(folderName){
@@ -53,7 +55,6 @@
       },
       toggleExpandedState(folderName){
         event.stopPropagation();
-        // console.log("parentPath", this.parentPath);
         let pathArray = JSON.parse(JSON.stringify(this.parentPath));
         pathArray.push(folderName);
         this.toggleExpanded(pathArray);
@@ -62,6 +63,7 @@
         let pathArray = JSON.parse(JSON.stringify(this.parentPath));
         pathArray.push(folderName);
         this.changeActiveFolder(pathArray);
+        this.closeSidebar();
       },
     }
   };

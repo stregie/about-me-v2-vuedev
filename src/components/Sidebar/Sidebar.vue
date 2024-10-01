@@ -29,7 +29,7 @@
         </li>
 
         <li>
-          <div class = "sidebar-list-item" @click = "openTrash">
+          <div class = "sidebar-list-item" @click = "switchToTrash">
             <button 
               class = "sidebar-list-icon"
               type = "button">
@@ -83,16 +83,22 @@
       ...mapState(useFilesAndFoldersStore, ['usedSpace'])
     },
     methods: {
-      ...mapActions(useComponentDisplayStore, ['changeActiveModal', 'toggleModalVisibility', 'toggleSidebarVisibility']),
+      ...mapActions(useComponentDisplayStore, ['changeActiveModal', 'toggleModalVisibility', 'closeSidebar', 'toggleSidebarVisibility']),
       ...mapActions(useFilesAndFoldersStore, ['changeActiveFolder', 'openTrash', 'closeTrash']),
       home(){
         this.changeActiveFolder([]);
         this.closeTrash();
+        this.closeSidebar();
       },
       openSearch(){
         this.toggleModalVisibility();
         this.changeActiveModal("ModalSearch");
+        this.closeSidebar();
       },
+      switchToTrash(){
+        this.openTrash();
+        this.closeSidebar();
+      }
     }
   }
 </script>

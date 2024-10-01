@@ -30,6 +30,9 @@ export const useComponentDisplayStore = defineStore('componentDisplay', {
   	toggleModalVisibility(){
   	  this.modalVisible = !this.modalVisible;
   	},
+    openSidebar(){
+      this.sidebarVisible = true;
+    },
     closeSidebar(){
       this.sidebarVisible = false;
     },

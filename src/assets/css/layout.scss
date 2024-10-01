@@ -1,7 +1,6 @@
-// @import "./variables.scss";
 #filemanager-minisite{
   display: grid;
-  height: calc(100vh - 80px);
+  // height: calc(100vh - 80px);  // This property is set in Main.vue
   overflow: hidden;
 }
 
@@ -35,13 +34,16 @@
   #filemanager-minisite{
     grid-template-columns: 200px 1fr;
   }
+
   #sidebar {
     grid-template-rows: 145px 1fr 60px;
     gap: 0;
   }
+
   #sidebar-menu {
     padding-top: 45px;
   }
+
   #main-content {
     padding: 40px;
   }
@@ -52,9 +54,11 @@
     grid-template-columns: 0px 1fr; 
     position: relative;
   }
+
   #sidebar {
     grid-template-rows: 130px 1fr 60px;
   }
+
   #main-content {
     padding: 10px;
   }

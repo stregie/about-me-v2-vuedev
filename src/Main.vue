@@ -52,8 +52,9 @@
 			this.fetchFileListAll();
 		},
 		mounted() {
-      window.addEventListener('resize', this.detectMobileView);
       this.detectMobileView(); // initiate check
+      window.addEventListener('resize', this.detectMobileView);
+      this.setViewportHeight();
     },
     unmounted() {
       window.removeEventListener('resize', this.detectMobileView);
@@ -79,6 +80,11 @@
 			drophandler(event){
 				event.preventDefault();
 				console.log("drop");
+			},
+			setViewportHeight(){
+				// Height of main HTML element is set here to avoid resizing when virtual keyboard pops up
+				let appHeight = window.outerHeight - 80;
+        document.querySelector('#filemanager-minisite').style.setProperty('height', `${appHeight}px`);
 			}
 		}
   };

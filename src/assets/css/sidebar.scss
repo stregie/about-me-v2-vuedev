@@ -39,8 +39,9 @@
     padding-left: 0px;
   }
   .sidebar-list-item {
-    display: flex;
     align-items: center;
+    cursor: pointer;
+    display: flex;
   }
   .sidebar-list-item.active{
     white-space: nowrap;
@@ -48,7 +49,6 @@
   .sidebar-list-item:hover{
     background: $background-3;
     border-radius: 8px;
-    cursor: pointer;
   }
 }
 
@@ -111,7 +111,7 @@ button.sidebar-list-icon.rotated {
 }
 
 @media (max-width: 768px) {
-  $sidebarWidth: 80%;
+  $sidebarWidth: 100%;
   #sidebar {
     position: absolute;
     width: $sidebarWidth;
