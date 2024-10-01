@@ -1,10 +1,4 @@
 <template>
-	<div class = "minisite-info-dummy">
-		Filemanager.
-		<router-link to = "/filemanager/filemanager-test/">Test</router-link>
-	  mobileView: {{ mobileView }};
-	</div>
-
 	<div id = "filemanager-minisite">
 		<div :class = "{ blurred: modalVisible }">
 			<Sidebar />
@@ -19,8 +13,6 @@
 		<Modal />
 		<NotificationBar />
 	</div>
-
-	<div class = "footer-dummy"></div>
 </template>
 
 <script >
@@ -83,7 +75,13 @@
 			},
 			setViewportHeight(){
 				// Height of main HTML element is set here to avoid resizing when virtual keyboard pops up
-				let appHeight = window.outerHeight - 80;
+				let appHeight = 0;
+				if (this.mobileView) {
+					appHeight = window.outerHeight - 75;
+				} else {
+					appHeight = window.innerHeight - 75;
+				}
+				console.log(appHeight);
         document.querySelector('#filemanager-minisite').style.setProperty('height', `${appHeight}px`);
 			}
 		}
@@ -91,16 +89,6 @@
 </script>
 
 <style lang = "scss" scoped>
-  .minisite-info-dummy {
-		background: black;
-		color: white;
-		line-height: 20vh;
-		padding-left: 20px;
-	}
-	.footer-dummy {
-		height: 80px; /* Same as express site */
-		background: black;
-	}
 	.blurred {
 		filter: blur(2px);
 	}
