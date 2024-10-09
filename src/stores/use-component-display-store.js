@@ -4,7 +4,7 @@ export const useComponentDisplayStore = defineStore('componentDisplay', {
   state: () => ({
   	fileListView: "ListView", // or DetailedView
     commandbarMenuVisible: false,
-  	activeModalComponent: "ModalRename", // null
+  	activeModalComponent: "",
   	modalVisible: false,
   	sidebarVisible: false,
     mobileView: false,

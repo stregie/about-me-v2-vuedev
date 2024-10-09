@@ -13,16 +13,14 @@
 <script>
   import { mapState, mapActions } from 'pinia';
   import { useComponentDisplayStore } from '/src/stores/use-component-display-store.js';
-  import ModalDraganddrop from './subcomponents/Draganddrop.vue';
-  import ModalMove from './subcomponents/Move.vue';
+  import ModalPreview from './subcomponents/Preview.vue';
   import ModalRename from './subcomponents/Rename.vue';
   import ModalSearch from './subcomponents/Search.vue';
  
 
 	export default {
     components: {
-      'ModalDraganddrop': ModalDraganddrop,
-      'ModalMove': ModalMove,
+      'ModalPreview': ModalPreview,
       'ModalRename': ModalRename,
       'ModalSearch': ModalSearch,
     },

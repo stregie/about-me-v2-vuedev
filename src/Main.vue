@@ -57,22 +57,6 @@
 		methods: {
 			...mapActions(useFilesStore, ['fetchFileListAll']),
 			...mapActions(useComponentDisplayStore, ['detectMobileView']),
-			dragstartHandler(){
-				console.log("dragstartHandler");
-			},
-			dragendHandler(){
-				console.log("dragendHandler");
-			},
-			dragenterHandler(){
-				console.log("dragenterHandler");
-			},
-			dragleaveHandler(){
-				console.log("dragleaveHandler");
-			},
-			drophandler(event){
-				event.preventDefault();
-				console.log("drop");
-			},
 			setViewportHeight(){
 				// Height of main HTML element is set here to avoid resizing when virtual keyboard pops up
 				let appHeight = 0;
@@ -81,7 +65,6 @@
 				} else {
 					appHeight = window.innerHeight - 75;
 				}
-				console.log(appHeight);
         document.querySelector('#filemanager-minisite').style.setProperty('height', `${appHeight}px`);
 			}
 		}

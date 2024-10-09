@@ -10,7 +10,7 @@
       <button 
         type = "button"
         class = "button-A"
-        @click = "createNewFolder(folderName)">
+        @click = "create">
         Create
       </button>
     </form>
@@ -28,7 +28,11 @@
       }
     },
     methods: {
-      ...mapActions(useFoldersStore, ['createNewFolder'])
+      ...mapActions(useFoldersStore, ['createNewFolder']),
+      create(){
+        this.createNewFolder(this.folderName);
+        this.folderName = "";
+      }
     }
   }
 </script>

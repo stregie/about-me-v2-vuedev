@@ -83,7 +83,7 @@
           :style = "{'order': 5 * index + columnOrder.name + 3000}"
           @mouseover = "highlightRow"
           @mouseleave = "removeHighlight"
-          @click = "downloadFile(file.fileid)">
+          @click = "primaryAction(file.fileid, file.filename, file.extension)">
           {{ file.filename }}
         </div>
         <div
@@ -126,12 +126,13 @@
     },
     computed: {
       ...mapState(useComponentDisplayStore, ['mobileView']),
+      ...mapState(useFilesStore, ['previewSupportedExtensions']),
       ...mapState(useFilesAndFoldersStore, ['activeFolder', 'foldersToDisplay', 'filesToDisplay']),
       isFolderEmpty(){    
         if (!this.foldersToDisplay || !this.filesToDisplay) { 
           return true;
         } else {
-          if (this.foldersToDisplay.length === 0 && this.filesToDisplay.length === 0) { // null -> false. [] -> true
+          if (this.foldersToDisplay.length === 0 && this.filesToDisplay.length === 0) {
             return true;
           } else {
             return false;
@@ -159,9 +160,16 @@
       }
     },
     methods: {
-      ...mapActions(useFilesStore, ['downloadFile']),
+      ...mapActions(useFilesStore, ['downloadFile', 'previewFile']),
       changeFolder(folder){
         this.activeFolder.push(folder);
+      },
+      primaryAction(fileid, filename, extension){
+        if(this.previewSupportedExtensions.includes(extension.toLowerCase())){
+          this.previewFile(fileid, filename, extension);
+        } else {
+          this.downloadFile(fileid);
+        }
       },
       formatSize(bytes){
         return formatSize(bytes);

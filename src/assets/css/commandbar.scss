@@ -67,6 +67,10 @@
 .commandbar-button:hover {
   background: $background-3;
 }
+.commandbar-button:active {
+  background: $background-4;
+
+}
 
 .commandbar-input {
   width: 100%;
@@ -93,6 +97,7 @@
     padding: 10px 20px;
     cursor: pointer;
     border-radius: 8px;
+    color: black;
   }
 
   label:hover {

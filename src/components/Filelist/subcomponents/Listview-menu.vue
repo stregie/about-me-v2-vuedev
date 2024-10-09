@@ -50,6 +50,16 @@
             <button
               type = "button"
               class = "dropdown-menu-item"
+              @click = "previewFile(fileMetaData.fileid, fileMetaData.filename, fileMetaData.extension)"
+              :disabled = "previewDisabled">
+              <img :src = "previewIcon"/>
+              <label>Preview</label>
+            </button>
+          </li>
+          <li>
+            <button
+              type = "button"
+              class = "dropdown-menu-item"
               @click = "downloadFile(fileMetaData.fileid)">
               <img :src = "downloadIcon"/>
               <label>Download</label>
@@ -114,31 +124,44 @@
   import { useFilesStore } from '/src/stores/use-files-store.js';
   import { useComponentDisplayStore } from '/src/stores/use-component-display-store.js';
   import { mapState, mapActions } from 'pinia';
-  import moreIcon from '/src/assets/icons/more_vert_black_24dp.svg';
-  import renameIcon from '/src/assets/icons/drive_file_rename_outline_black_24dp.svg';
-  import moveIcon from '/src/assets/icons/drive_file_move_black_24dp.svg';
+
   import deleteIcon from '/src/assets/icons/delete_black_24dp.svg';
   import downloadIcon from '/src/assets/icons/file_download_black_24dp.svg';
-  import restoreIcon from '/src/assets/icons/restore_page_black_24dp.svg';
+  import moreIcon from '/src/assets/icons/more_vert_black_24dp.svg';
+  import moveIcon from '/src/assets/icons/drive_file_move_black_24dp.svg';
   import permanentDeleteIcon from '/src/assets/icons/delete_forever_black_24dp.svg';
-
+  import previewIcon from '/src/assets/icons/preview_black_24dp.svg';
+  import renameIcon from '/src/assets/icons/drive_file_rename_outline_black_24dp.svg';
+  import restoreIcon from '/src/assets/icons/restore_page_black_24dp.svg';
+  
 
 	export default {
     props: ['entryType', 'folderName', 'fileMetaData', 'path'],
 		data() {
 			return {
         dropdownDisplay: false,
-        moreIcon: moreIcon, 
-        renameIcon: renameIcon,
-        moveIcon: moveIcon,
         deleteIcon: deleteIcon,
         downloadIcon: downloadIcon,
+        moreIcon: moreIcon, 
+        moveIcon: moveIcon,
         permanentDeleteIcon: permanentDeleteIcon,
+        previewIcon: previewIcon, 
+        renameIcon: renameIcon,
         restoreIcon: restoreIcon,
 			}
 		},
+    computed: {
+      ...mapState(useFilesStore, ['previewSupportedExtensions']),
+      previewDisabled(){
+        if(this.previewSupportedExtensions.includes(this.fileMetaData.extension.toLowerCase())){
+          return false;
+        } else {
+          return true;
+        }
+      }
+    },
     methods: {
-      ...mapActions(useFilesStore, ['downloadFile', 'moveFileToTrash', 'restoreFileFromTrash', 'deleteFilePermanently', 'openRenameFileModal']),
+      ...mapActions(useFilesStore, ['downloadFile', 'previewFile', 'moveFileToTrash', 'restoreFileFromTrash', 'deleteFilePermanently', 'openRenameFileModal']),
       ...mapActions(useComponentDisplayStore, ['openModal']),
       openDropdown(){
         this.dropdownDisplay = true;
@@ -158,11 +181,6 @@
       deleteFolderToTrash(){
         console.log("delete folder to trash", this.folderName);
       },
-//       openRenameFile(){
-//         this.openModal("ModalRename");
-// 
-//         console.log("Rename file", this.fileMetaData.filename);
-//       },
       moveFile(){
         console.log("Move file", this.fileMetaData.filename);
       },

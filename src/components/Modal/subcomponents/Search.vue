@@ -2,7 +2,7 @@
   <div id = "modal-search" class = "modal-child modal-large">
     <div id = "search-bar">
       <div>
-        <img :src = "'/src/assets/icons/search_black_24dp.svg'" />
+        <img :src = "searchIcon" />
       </div>
       <div>
         <input
@@ -30,11 +30,14 @@
   import { useFilesStore } from '/src/stores/use-files-store.js';
   import { useFilesAndFoldersStore } from '/src/stores/use-files-and-folders-store.js';
   import { pathToArray } from '/src/utils/foldertree.js';
+  import searchIcon from '/src/assets/icons/search_black_24dp.svg';
+
 
 	export default {
 		data() {
 			return {
-        searchString: ""
+        searchString: "",
+        searchIcon: searchIcon,
 			}
 		},
     computed: {

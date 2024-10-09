@@ -14,12 +14,18 @@ export const useFilesStore = defineStore('files', {
       newFileName: "",
       newExtension: ""
     },
+    previewInfo: {
+      fileId: "",
+      fileName: "",
+      extension: "",
+    },
+    previewSupportedExtensions: ['epub', 'bmp', 'gif', 'jpeg', 'jpg', 'png', 'webp', 'pdf', 'txt'],
     loading: false,
     error: null
   }),
   getters: {
     fileListAvailable: (state) => {
-      if(!state.fileListAll) {
+      if(!state.fileListAll){
         return null;
       } else {
         return state.fileListAll.filter(file => file.status === "available");
@@ -33,12 +39,24 @@ export const useFilesStore = defineStore('files', {
       }
     },
     fileListTrash: (state) => {
-      if (!state.fileListAll) {
+      if (!state.fileListAll){
         return null;
       } else {
         return state.fileListAll.filter(file => file.status === "trash");
       }
     },
+    previewFileType: (state) => {
+      let supportedImageExtensions = ['bmp', 'gif', 'jpeg', 'jpg', 'png', 'webp'];
+      if (state.previewInfo.extension.toLowerCase() === "txt"){
+        return "txt";
+      } else if (state.previewInfo.extension.toLowerCase() === "pdf" ){
+        return "pdf";
+      } else if (supportedImageExtensions.includes(state.previewInfo.extension.toLowerCase())){
+        return "image";
+      } else if (state.previewInfo.extension.toLowerCase() === "epub" ){
+        return "epub";
+      }
+    }
   },
   actions: {
     async fetchFileListAll(){
@@ -58,7 +76,6 @@ export const useFilesStore = defineStore('files', {
       }
     },
     async downloadFile(fileid){
-      console.log("downloadFile", fileid);
       useComponentDisplayStore().newNotification(`File download started.`);
       window.location.href = `/vueapi/file?id=${fileid}`;
     },
@@ -109,7 +126,17 @@ export const useFilesStore = defineStore('files', {
       this.renameFileTo.newFileName = removeExtension(filename);
       this.renameFileTo.newExtension = extension;
       useComponentDisplayStore().openModal("ModalRename");
-      console.log(this.renameFileTo);
+    },
+    async previewFile(fileid, filename, extension){
+      this.previewInfo.fileId = fileid;
+      this.previewInfo.fileName = filename;
+      this.previewInfo.extension = extension;
+      useComponentDisplayStore().openModal("ModalPreview");
+    },
+    resetPreviewInfo(){
+      this.previewInfo.fileId = "";
+      this.previewInfo.fileName = "";
+      this.previewInfo.extension = "";
     },
     async renameFile(state){
       try {
