@@ -13,7 +13,12 @@
 		<Modal />
 		<NotificationBar />
 	</div>
+
+	<!-- <div class = "debug">
+		innerHeight: {{ iH }} outerHeight: {{ oH }}
+	</div> -->
 </template>
+
 
 <script >
   import { mapState, mapActions } from 'pinia';
@@ -37,7 +42,9 @@
     },
     data() {
     	return {
-    		windowWidth: window.innerWidth
+    		windowWidth: window.innerWidth,
+    		iH: window.innerHeight,
+    		oH: window.outerHeight
     	}
     },
 		async created(){
@@ -58,14 +65,19 @@
 			...mapActions(useFilesStore, ['fetchFileListAll']),
 			...mapActions(useComponentDisplayStore, ['detectMobileView']),
 			setViewportHeight(){
-				// Height of main HTML element is set here to avoid resizing when virtual keyboard pops up
-				let appHeight = 0;
+				// Height of main HTML element is set here to avoid resizing the base value of vh when virtual keyboard pops up on Firefox
+				let appHeight = "";
 				if (this.mobileView) {
-					appHeight = window.outerHeight - 75;
-				} else {
-					appHeight = window.innerHeight - 75;
+					if (window.innerHeight == window.outerHeight){ // Non-Firefox mobile
+						appHeight = "calc(100vh - 80px)"
+					} else { // for Firefox mobile or small-width desktop
+						appHeight = String(window.innerHeight - 75) + "px";
+					}
+				} else {  // Desktop
+					appHeight = "calc(100vh - 80px)"
 				}
-        document.querySelector('#filemanager-minisite').style.setProperty('height', `${appHeight}px`);
+				console.log(appHeight);
+        document.querySelector('#filemanager-minisite').style.setProperty('height', `${appHeight}`);
 			}
 		}
   };
@@ -74,5 +86,9 @@
 <style lang = "scss" scoped>
 	.blurred {
 		filter: blur(2px);
+	}
+	.debug {
+		background: black;
+		color: white;
 	}
 </style>

@@ -95,11 +95,24 @@ button.sidebar-list-icon.rotated {
   }
 
   progress {
-    background: $background-3;
+    background: $background-4;
     border: none;
-    height: 3px;
+    min-height: 5px;
     color: black;
     width: 100%;
+  }
+
+  progress::-webkit-progress-bar {
+    background: $background-4;
+  }
+
+
+  progress[value]::-moz-progress-bar {
+    background: #363636;
+  }
+  
+  progress[value]::-webkit-progress-value {
+    background: #363636;
   }
 }
 

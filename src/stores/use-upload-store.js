@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { defineStore } from 'pinia';
 import { useComponentDisplayStore } from './use-component-display-store.js';
 import { useFilesStore } from './use-files-store.js';
@@ -10,7 +11,8 @@ export const useUploadStore = defineStore('uploadedFiles', {
     fileInput: null,
     formData: null,
     nonExistingFiles: null,
-    processing: false,
+    uploading: false,
+    uploadProgress: 0,
   }),
   getters: {
     fileInputTotalSize(){
@@ -23,23 +25,30 @@ export const useUploadStore = defineStore('uploadedFiles', {
     },
     path(){
       return pathToString(useFilesAndFoldersStore().activeFolder);
+    },
+    uploadPercent(){
+      return this.uploadProgress + "%";
     }
   },
   actions: {
     async handleUpload(files){
       this.uploadResponse = null;
       this.fileInput = files;
+      if (this.fileInputTotalSize > 4718592){
+        useComponentDisplayStore().newNotification("Size limit exceeded: Maximum 4,5 MB can be uploaded at once.");
+        return;
+      }
+
+      if (this.path === "/"){
+        useComponentDisplayStore().newNotification("You can not upload files to the root.");
+        return;
+      }
 
       try {
-        if (this.fileInputTotalSize > 4718592){
-          useComponentDisplayStore().newNotification("Size limit exceeded: Maximum 4,5 MB can be uploaded at once.");
-          return
-        }
-
         await this.findExistingFiles();
         this.createFormData();
         if (Array.from(this.formData.entries()).length <= 1) {
-          return
+          return;
         }
         await this.uploadFiles();
       } catch (error) {
@@ -78,6 +87,7 @@ export const useUploadStore = defineStore('uploadedFiles', {
         this.nonExistingFiles = serverResponse.nonExistingFiles;
       } catch(error) {
         console.log(error);
+        useComponentDisplayStore().newNotification("An error has occured during upload.");
       }
     },
     createFormData(){
@@ -94,44 +104,24 @@ export const useUploadStore = defineStore('uploadedFiles', {
     },
     async uploadFiles(){
       try {
-        this.processing = true;
+        this.uploading = true;
         useComponentDisplayStore().newNotification("File upload started");
-        const response = await fetch('/vueapi/upload/', {
-          method: "PUT",
-          body: this.formData
+        const response = await axios.put('/vueapi/upload/', this.formData, {
+          headers: { 'Content-Type': 'multipart/form-data' },
+          onUploadProgress: (progressEvent) => {
+            this.uploadProgress = parseInt(Math.round((progressEvent.loaded / progressEvent.total) * 100));
+          },
         });
-        const result = await response.json();
+        const result = await response.data;
+        console.log(result.uploadedFiles, result.existingFiles);
         useComponentDisplayStore().newNotification("Files uploaded successfully");
       } catch (error) {
         console.error(error);          
         useComponentDisplayStore().newNotification("An error has occured");
       }  finally {
-        this.processing = false;
+        this.uploading = false;
+        this.uploadProgress = 0;
       }
     }
-//     async uploadFiles(){    
-//       // XMLHttpRequest is used to track upload progress
-//       const upload = new Promise((resolve, reject) =>{
-//         document.querySelector('#progress-bar').classList.remove("processing");
-//         let request = new XMLHttpRequest();
-//         request.open('PUT', '/vueapi/upload/'); 
-// 
-//         request.upload.addEventListener('progress', function(e) {
-//           let percentCompleted = Math.floor((e.loaded / e.total) * 100);
-//           console.log("progress", percentCompleted);
-//           document.querySelector('#progress-bar').style.backgroundImage = `conic-gradient(at ${percentCompleted}% 100%, #FAFAFA, #E2E2E1)`;
-//         });
-// 
-//         request.addEventListener('load', function(e) {
-//           document.querySelector('#progress-bar').classList.add("processing");
-//           console.log(request.status);
-//           console.log(request.response);
-//           resolve(request.response);
-//         });
-// 
-//         request.send(this.formData);
-//       });
-//       console.log('resolve', upload);
-//     }
   }
 });

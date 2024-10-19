@@ -10,14 +10,14 @@
 
 #main-content {
   display: grid;
-  grid-template-rows: 50px 0 30px 1fr;
+  grid-template-rows: 50px 0 auto 1fr;
   transition: grid-template-rows 0.3s;
   overflow: hidden;
   position: relative;
 }
 
 #main-content.commandbar-menu-open{
-  grid-template-rows: 50px 85px 30px 1fr;
+  grid-template-rows: 50px 85px auto 1fr;
   overflow: hidden;
 }
 

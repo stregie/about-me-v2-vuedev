@@ -9,8 +9,13 @@
         @change = "handleChange"/>
     </form>
 
-    <div v-if = "processing" id = "progress-indicator">
-      <div class = "progress-bar processing"></div>
+    <div 
+      v-if = "uploading"
+      id = "progress-indicator">
+      <div
+        class = "progress-bar"
+        :class = "[uploadProgress < 100 ? 'uploading' : 'processing']">
+      </div>
     </div>
   </div>
 </template>
@@ -21,7 +26,7 @@
 
 	export default {
     computed: {
-      ...mapState(useUploadStore, ['processing']),
+      ...mapState(useUploadStore, ['uploading', 'uploadProgress', 'uploadPercent']),
     },
     methods: {
       ...mapActions(useUploadStore, ['handleUpload']),
@@ -34,4 +39,8 @@
 
 <style lang = "scss" scoped>
   @import "/src/assets/css/commandbar.scss";
+
+  .uploading {
+    background-image: conic-gradient(at v-bind(uploadPercent) 100%, $background-1, $background-4);
+  }
 </style>

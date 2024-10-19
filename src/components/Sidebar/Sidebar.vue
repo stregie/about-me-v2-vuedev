@@ -1,7 +1,7 @@
 <template>
   <div id = "sidebar" :class = "{hidden: !sidebarVisible}">
-    <button id = "sidebar-toggler" type = "button" @click = "toggleSidebarVisibility">
-      <img :src = "'/src/assets/icons/keyboard_double_arrow_left_black_24dp.svg'" />
+    <button id = "sidebar-toggler" type = "button" @click = "closeSidebar">
+      <img :src = "doubleLeftArrowIcon" />
     </button>
 
     <div id = "sidebar-menu" class = "sidebar-list">
@@ -65,6 +65,7 @@
   import homeIcon from '/src/assets/icons/home_black_24dp.svg';
   import searchIcon from '/src/assets/icons/search_black_24dp.svg';
   import trashIcon from '/src/assets/icons/folder_delete_black_24dp.svg';
+  import doubleLeftArrowIcon from '/src/assets/icons/keyboard_double_arrow_left_black_24dp.svg'
 
 	export default {
     components: {
@@ -72,9 +73,10 @@
     },
     data(){
       return {
+        doubleLeftArrowIcon: doubleLeftArrowIcon,
         homeIcon: homeIcon,
         searchIcon: searchIcon,
-        trashIcon: trashIcon
+        trashIcon: trashIcon,
       }
     },
     computed: {
@@ -83,7 +85,7 @@
       ...mapState(useFilesAndFoldersStore, ['usedSpace'])
     },
     methods: {
-      ...mapActions(useComponentDisplayStore, ['changeActiveModal', 'toggleModalVisibility', 'closeSidebar', 'toggleSidebarVisibility']),
+      ...mapActions(useComponentDisplayStore, ['changeActiveModal', 'openModal', 'closeSidebar']),
       ...mapActions(useFilesAndFoldersStore, ['changeActiveFolder', 'openTrash', 'closeTrash']),
       home(){
         this.changeActiveFolder([]);
@@ -91,8 +93,7 @@
         this.closeSidebar();
       },
       openSearch(){
-        this.toggleModalVisibility();
-        this.changeActiveModal("ModalSearch");
+        this.openModal("ModalSearch");
         this.closeSidebar();
       },
       switchToTrash(){
