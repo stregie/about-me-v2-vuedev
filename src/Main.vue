@@ -4,7 +4,12 @@
 			<Sidebar />
 		</div>
 
-		<div id = "main-content" :class = "{ blurred: modalVisible, 'commandbar-menu-open': commandbarMenuVisible }">
+		<div
+		  id = "main-content"
+		  :class = "{ 
+		  	blurred: modalVisible || sidebarVisible && mobileView,
+		  	'commandbar-menu-open': commandbarMenuVisible
+		  }">
 			<Commandbar />
 			<Breadcrumb />
 			<Filelist />
@@ -59,7 +64,7 @@
       window.removeEventListener('resize', this.detectMobileView);
     },
 		computed: {
-			...mapState(useComponentDisplayStore, ['modalVisible', 'commandbarMenuVisible', 'mobileView']),
+			...mapState(useComponentDisplayStore, ['sidebarVisible', 'modalVisible', 'commandbarMenuVisible', 'mobileView']),
 		},
 		methods: {
 			...mapActions(useFilesStore, ['fetchFileListAll']),
@@ -87,6 +92,7 @@
 	.blurred {
 		filter: blur(2px);
 	}
+	
 	.debug {
 		background: black;
 		color: white;

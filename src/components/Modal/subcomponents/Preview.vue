@@ -3,9 +3,13 @@
     id = "modal-preview"
     class = "modal-child modal-flexible">
 
-    <div
-      class = "modal-preview-title">
-      <h3>Preview</h3><br>
+    <div class = "modal-preview-title">
+      <h3>Preview</h3>
+      <button 
+        type = "button"
+        @click = "closeModal">
+        <img :src = "closeIcon" />
+      </button>
       <label><i>{{ previewInfo.fileName }}</i></label>
     </div>
 
@@ -37,11 +41,13 @@
 
 <script>
   import { mapState, mapActions } from 'pinia';
+  import { useComponentDisplayStore } from '/src/stores/use-component-display-store.js';
   import { useFilesStore } from '/src/stores/use-files-store.js';
   import EpubViewer from './Preview Tools/epub-viewer.vue';
   import ImgViewer from './Preview Tools/img-viewer.vue';
   import PdfViewer from './Preview Tools/pdf-viewer.vue';
   import TxtViewer from './Preview Tools/txt-viewer.vue';
+   import closeIcon from '/src/assets/icons/close_black_24dp.svg';
 
 	export default {
     components: {
@@ -50,6 +56,11 @@
       PdfViewer,
       TxtViewer,
     },
+    data(){
+      return {
+        closeIcon: closeIcon
+      }
+    },
     unmounted(){
       this.resetPreviewInfo();
     },
@@ -57,6 +68,7 @@
       ...mapState(useFilesStore, ['previewInfo', 'previewFileType']),
     },
     methods: {
+      ...mapActions(useComponentDisplayStore, ['closeModal']),
       ...mapActions(useFilesStore, ['resetPreviewInfo']),
     }
   }

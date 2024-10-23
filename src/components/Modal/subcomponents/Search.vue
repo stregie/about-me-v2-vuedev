@@ -1,16 +1,17 @@
 <template>
   <div id = "modal-search" class = "modal-child modal-large">
     <div id = "search-bar">
-      <div>
-        <img :src = "searchIcon" />
-      </div>
-      <div>
-        <input
-          v-model = "searchString"
-          type = "text" 
-          placeholder = "Search for files"
-          @input = "handleInput" />
-      </div>
+      <img :src = "searchIcon" />
+      <input
+        v-model = "searchString"
+        type = "text" 
+        placeholder = "Search for files"
+        @input = "handleInput" />
+      <button
+        type = "button"
+        @click = "closeModal">
+        <img :src = "closeIcon" />
+      </button>
     </div>
 
     <div id = "search-results">
@@ -30,12 +31,14 @@
   import { useFilesStore } from '/src/stores/use-files-store.js';
   import { useFilesAndFoldersStore } from '/src/stores/use-files-and-folders-store.js';
   import { pathToArray } from '/src/utils/foldertree.js';
+   import closeIcon from '/src/assets/icons/close_black_24dp.svg';
   import searchIcon from '/src/assets/icons/search_black_24dp.svg';
 
 
 	export default {
 		data() {
 			return {
+        closeIcon: closeIcon,
         searchString: "",
         searchIcon: searchIcon,
 			}

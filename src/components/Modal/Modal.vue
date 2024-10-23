@@ -1,13 +1,16 @@
 <template>
-  <div
-    class = "modal-container"
-    v-if = "modalVisible" 
-    @click = "closeModal"
-    >
-    <component
-      :is = "activeModalComponent"
-      @click = "preventCloseInsideModal"/>
-  </div>
+  <Transition>
+    <div
+      class = "modal-container"
+      v-if = "modalVisible" 
+      @click = "closeModal"
+      >
+
+      <component
+        :is = "activeModalComponent"
+        @click = "preventCloseInsideModal"/>
+    </div>
+  </Transition>
 </template>
 
 <script>
@@ -38,4 +41,18 @@
 
 <style lang = "scss" scoped>
   @import "/src/assets/css/modal.scss";
+  
+  .v-enter-to,
+  .v-leave-from {
+    opacity: 1;
+  }
+  
+  .v-enter-from, 
+  .v-leave-to {
+    opacity: 0;
+  }
+  
+  .modal-container {
+    transition: opacity 0.3s;
+  }
 </style>

@@ -1,23 +1,26 @@
 @import "./variables.scss";
 
 #sidebar {
-  background: $background-2;
-  border-right: 1px solid $border-1;
   color: $font-light;
   font-weight: 500;
   height: 100%;
-  position: relative;
+  overflow-y: hidden;
   z-index: 90;
+}
+
+#sidebar-contents {
+  background: $background-2;
+  border-right: 1px solid $border-1;
+  overflow-y: hidden;
 }
 
 #sidebar-toggler {
   background: none;
   border: none;
-  position: absolute;
-  right: 5px;
-  top: 5px;
   
   img {
+    height: 40px;
+    width: 40px;
     opacity: 50%;
   }
 }
@@ -33,6 +36,10 @@
 }
 
 .sidebar-list{
+  label {
+    padding-left: 10px;
+    font-weight: bold;
+  }
   ul {
     margin: 0;
     list-style: none;
@@ -117,6 +124,10 @@ button.sidebar-list-icon.rotated {
 }
 
 @media (min-width: 769px) {
+  #sidebar-background {
+    display: none;
+  }
+
   #sidebar-toggler-commandbar,
   #sidebar-toggler {
     display: none;
@@ -124,19 +135,34 @@ button.sidebar-list-icon.rotated {
 }
 
 @media (max-width: 768px) {
-  $sidebarWidth: 100%;
   #sidebar {
+    font-size: 1.0rem;
     position: absolute;
-    width: $sidebarWidth;
+    left: 0;
+    transition: grid-template-columns 0.3s ease-in-out, visibility 0.3s ease-in-out;
+    width: 100%;
     visibility: visible;
+  }
+
+  #sidebar-contents {
     left: 0;
     transition: left 0.3s ease-in-out, visibility 0.3s ease-in-out;
-    font-size: 1.4rem;
+  }
+
+  #sidebar-background {
+    background: $transparent-dark;
+    display: flex;
+    justify-content: center;
+    opacity: 1;
+    transition: opacity 0.3s linear;
   }
 
   #sidebar.hidden {
-    left: -$sidebarWidth;
     visibility: hidden;
+
+    #sidebar-background {
+      opacity: 0;
+    }
   }
 
   #sidebar-menu {

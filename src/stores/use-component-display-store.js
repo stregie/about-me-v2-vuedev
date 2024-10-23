@@ -2,7 +2,7 @@ import { defineStore } from 'pinia';
 
 export const useComponentDisplayStore = defineStore('componentDisplay', {
   state: () => ({
-  	fileListView: "ListView", // or DetailedView
+  	fileListView: "ListView",
     commandbarMenuVisible: false,
   	activeModalComponent: "",
   	modalVisible: false,

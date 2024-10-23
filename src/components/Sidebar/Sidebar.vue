@@ -1,56 +1,61 @@
 <template>
   <div id = "sidebar" :class = "{hidden: !sidebarVisible}">
-    <button id = "sidebar-toggler" type = "button" @click = "closeSidebar">
-      <img :src = "doubleLeftArrowIcon" />
-    </button>
+    <div id = "sidebar-contents">
+      <div id = "sidebar-menu" class = "sidebar-list">
+        <ul>
+          <li>
+            <div class = "sidebar-list-item" @click = "home">
+              <button 
+                class = "sidebar-list-icon"
+                type = "button">
+                <img :src = "homeIcon" />
+              </button>
+              <div class = "sidebar-list-text">Home</div> 
+            </div>
+          </li>
+          
+          <li>
+            <div class = "sidebar-list-item" @click = "openSearch">
+              <button 
+                class = "sidebar-list-icon"
+                type = "button">
+                <img :src = "searchIcon" />
+              </button>
+              <div class = "sidebar-list-text">Search</div> 
+            </div>
+          </li>
 
-    <div id = "sidebar-menu" class = "sidebar-list">
-      <ul>
-        <li>
-          <div class = "sidebar-list-item" @click = "home">
-            <button 
-              class = "sidebar-list-icon"
-              type = "button">
-              <img :src = "homeIcon" />
-            </button>
-            <div class = "sidebar-list-text">Home</div> 
-          </div>
-        </li>
-        
-        <li>
-          <div class = "sidebar-list-item" @click = "openSearch">
-            <button 
-              class = "sidebar-list-icon"
-              type = "button">
-              <img :src = "searchIcon" />
-            </button>
-            <div class = "sidebar-list-text">Search</div> 
-          </div>
-        </li>
+          <li>
+            <div class = "sidebar-list-item" @click = "switchToTrash">
+              <button 
+                class = "sidebar-list-icon"
+                type = "button">
+                <img :src = "trashIcon" />
+              </button>
+              <div class = "sidebar-list-text">Trash</div> 
+            </div>
+          </li>
+        </ul>
+      </div>
 
-        <li>
-          <div class = "sidebar-list-item" @click = "switchToTrash">
-            <button 
-              class = "sidebar-list-icon"
-              type = "button">
-              <img :src = "trashIcon" />
-            </button>
-            <div class = "sidebar-list-text">Trash</div> 
-          </div>
-        </li>
-      </ul>
+      <div id = "sidebar-folders" class = "sidebar-list">
+        <label>Folders</label>
+        <Node :tree = "folderTree" :parentPath = "[]" />
+        <!-- <ul id = "dummy-list-items">
+          <li v-for = "n in 60" :key = "n">Dummy {{ n }}</li>
+        </ul> -->
+      </div>
+
+      <div id = "sidebar-storage">
+        <label>Storage: {{ usedSpace }} MB / 250 MB</label>
+        <progress :value = "usedSpace" max = "250"></progress>
+      </div>
     </div>
 
-    <div id = "sidebar-folders" class = "sidebar-list">
-      <Node :tree = "folderTree" :parentPath = "[]" />
-      <!-- <ul id = "dummy-list-items">
-        <li v-for = "n in 30" :key = "n">Dummy {{ n }}</li>
-      </ul> -->
-    </div>
-
-    <div id = "sidebar-storage">
-      <label>Storage: {{ usedSpace }} MB / 250 MB</label>
-      <progress :value = "usedSpace" max = "250"></progress>
+    <div id = "sidebar-background">
+      <button id = "sidebar-toggler" type = "button" @click = "closeSidebar">
+        <img :src = "doubleLeftArrowIcon" />
+      </button>
     </div>
   </div>
 </template>
@@ -106,4 +111,8 @@
 
 <style lang = "scss" scoped>
   @import "/src/assets/css/sidebar.scss";
+  
+  #dummy-list-items {
+    padding-left: 30px;
+  }
 </style>

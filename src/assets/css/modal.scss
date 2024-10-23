@@ -6,11 +6,12 @@
   left: 0px;
   height: 100%;
   width: 100%;
-  background: #00000088;
+  background: $transparent-dark;
   z-index: 95;
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 }
 
 .modal-child {
@@ -19,6 +20,7 @@
   background: $background-1;
   box-shadow: 1px 1px 5px 1px #666;
   overflow: hidden;
+  cursor: default;
 }
 
 .modal-small {
@@ -36,14 +38,18 @@
 #search-bar {
   border-bottom: 1px solid $border-1;
   display: grid;
-  grid-template-columns: 30px 1fr;
+  grid-template-columns: 40px 1fr 40px;
   padding: 10px;
 
   img {
     opacity: 0.5;
+    height: 30px;
+    width: 30px;
   }
+
   input {
     border: none;
+    height: 30px;
     width: 100%;
     color: $font-light;
   }
@@ -51,6 +57,11 @@
   input:focus-visible {
     outline: none;
     box-shadow: none;
+  }
+
+  button {
+    background: none;
+    border: none;
   }
 }
 
@@ -105,7 +116,7 @@
   border-bottom: 1px solid $border-1;
   box-shadow: 1px 1px 2px 3px #BBBBBB10;
   display: grid;
-  grid-template-columns: 1fr 20px;
+  grid-template-columns: 1fr 30px;
   grid-template-rows: auto auto;
   padding: 10px 20px;
 
@@ -117,6 +128,18 @@
     text-overflow: ellipsis;
     margin: 0;
     line-height: 30px;
+  }
+
+  button {
+    background: none;
+    border: none;
+    // border: 1px solid red;
+    grid-row-end: span 2;
+  }
+
+  img {
+    height: 30px;
+    width: 30px;
   }
 
   label {
